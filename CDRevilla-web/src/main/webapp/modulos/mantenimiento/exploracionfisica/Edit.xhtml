@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="ExploracionfisicaEditDlg" widgetVar="ExploracionfisicaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditExploracionfisicaTitle}">
+      <h:form id="ExploracionfisicaEditForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{exploracionfisicaController.selected != null}">
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_idExploracionFisica}" for="idExploracionFisica" />
+            <p:inputText id="idExploracionFisica" value="#{exploracionfisicaController.selected.idExploracionFisica}" title="#{bundle.EditExploracionfisicaTitle_idExploracionFisica}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_idExploracionFisica}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_signosVitales}" for="signosVitales" />
+            <p:inputText id="signosVitales" value="#{exploracionfisicaController.selected.signosVitales}" title="#{bundle.EditExploracionfisicaTitle_signosVitales}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_signosVitales}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_pulso}" for="pulso" />
+            <p:inputText id="pulso" value="#{exploracionfisicaController.selected.pulso}" title="#{bundle.EditExploracionfisicaTitle_pulso}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_pulso}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_temperatura}" for="temperatura" />
+            <p:inputText id="temperatura" value="#{exploracionfisicaController.selected.temperatura}" title="#{bundle.EditExploracionfisicaTitle_temperatura}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_temperatura}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_fc}" for="fc" />
+            <p:inputText id="fc" value="#{exploracionfisicaController.selected.fc}" title="#{bundle.EditExploracionfisicaTitle_fc}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_fc}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_frecuenciaRespiratoria}" for="frecuenciaRespiratoria" />
+            <p:inputText id="frecuenciaRespiratoria" value="#{exploracionfisicaController.selected.frecuenciaRespiratoria}" title="#{bundle.EditExploracionfisicaTitle_frecuenciaRespiratoria}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_frecuenciaRespiratoria}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_examenClinicoGeneral}" for="examenClinicoGeneral" />
+            <p:inputText id="examenClinicoGeneral" value="#{exploracionfisicaController.selected.examenClinicoGeneral}" title="#{bundle.EditExploracionfisicaTitle_examenClinicoGeneral}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_examenClinicoGeneral}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_odontoestomatologico}" for="odontoestomatologico" />
+            <p:inputText id="odontoestomatologico" value="#{exploracionfisicaController.selected.odontoestomatologico}" title="#{bundle.EditExploracionfisicaTitle_odontoestomatologico}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_odontoestomatologico}"/>
+            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_idHistoriaClinica}" for="idHistoriaClinica" />
+            <p:selectOneMenu id="idHistoriaClinica" value="#{exploracionfisicaController.selected.idHistoriaClinica}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_idHistoriaClinica}">
+              <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+              <f:selectItems value="#{historiaclinicaController.itemsAvailableSelectOne}"
+                             var="idHistoriaClinicaItem"
+                             itemValue="#{idHistoriaClinicaItem}"/>
+            </p:selectOneMenu>
+          </p:panelGrid>
+          <p:commandButton actionListener="#{exploracionfisicaController.update}" value="#{bundle.Save}" update="display,:ExploracionfisicaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExploracionfisicaEditDialog');"/>
+          <p:commandButton value="#{bundle.Cancel}" onclick="ExploracionfisicaEditDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

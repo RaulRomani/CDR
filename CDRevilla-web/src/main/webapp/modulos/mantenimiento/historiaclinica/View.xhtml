@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="HistoriaclinicaViewDlg" widgetVar="HistoriaclinicaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewHistoriaclinicaTitle}">
+      <h:form id="HistoriaclinicaViewForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{historiaclinicaController.selected != null}">
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_idHistoriaClinica}"/>
+            <h:outputText value="#{historiaclinicaController.selected.idHistoriaClinica}" title="#{bundle.ViewHistoriaclinicaTitle_idHistoriaClinica}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_fechaAtencion}"/>
+            <h:outputText value="#{historiaclinicaController.selected.fechaAtencion}" title="#{bundle.ViewHistoriaclinicaTitle_fechaAtencion}">
+              <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            </h:outputText>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_idEnfermedad}"/>
+            <h:outputText value="#{historiaclinicaController.selected.idEnfermedad}" title="#{bundle.ViewHistoriaclinicaTitle_idEnfermedad}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_antecedentesFamiliares}"/>
+            <h:outputText value="#{historiaclinicaController.selected.antecedentesFamiliares}" title="#{bundle.ViewHistoriaclinicaTitle_antecedentesFamiliares}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_antecedentesPersonales}"/>
+            <h:outputText value="#{historiaclinicaController.selected.antecedentesPersonales}" title="#{bundle.ViewHistoriaclinicaTitle_antecedentesPersonales}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_idExploracionFisica}"/>
+            <h:outputText value="#{historiaclinicaController.selected.idExploracionFisica}" title="#{bundle.ViewHistoriaclinicaTitle_idExploracionFisica}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_diagnosticoPresuntivo}"/>
+            <h:outputText value="#{historiaclinicaController.selected.diagnosticoPresuntivo}" title="#{bundle.ViewHistoriaclinicaTitle_diagnosticoPresuntivo}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_diagnosticoDefinitivo}"/>
+            <h:outputText value="#{historiaclinicaController.selected.diagnosticoDefinitivo}" title="#{bundle.ViewHistoriaclinicaTitle_diagnosticoDefinitivo}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_planTrabajo}"/>
+            <h:outputText value="#{historiaclinicaController.selected.planTrabajo}" title="#{bundle.ViewHistoriaclinicaTitle_planTrabajo}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_pronostico}"/>
+            <h:outputText value="#{historiaclinicaController.selected.pronostico}" title="#{bundle.ViewHistoriaclinicaTitle_pronostico}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_tratamientoRecomendacion}"/>
+            <h:outputText value="#{historiaclinicaController.selected.tratamientoRecomendacion}" title="#{bundle.ViewHistoriaclinicaTitle_tratamientoRecomendacion}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_altaPaciente}"/>
+            <h:outputText value="#{historiaclinicaController.selected.altaPaciente}" title="#{bundle.ViewHistoriaclinicaTitle_altaPaciente}"/>
+            <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_idPaciente}"/>
+            <h:outputText value="#{historiaclinicaController.selected.idPaciente}" title="#{bundle.ViewHistoriaclinicaTitle_idPaciente}"/>
+          </p:panelGrid>
+          <p:commandButton value="#{bundle.Close}" onclick="HistoriaclinicaViewDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

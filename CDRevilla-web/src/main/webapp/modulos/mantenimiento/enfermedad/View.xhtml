@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="EnfermedadViewDlg" widgetVar="EnfermedadViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEnfermedadTitle}">
+      <h:form id="EnfermedadViewForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{enfermedadController.selected != null}">
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_idEnfermedad}"/>
+            <h:outputText value="#{enfermedadController.selected.idEnfermedad}" title="#{bundle.ViewEnfermedadTitle_idEnfermedad}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_datosInformante}"/>
+            <h:outputText value="#{enfermedadController.selected.datosInformante}" title="#{bundle.ViewEnfermedadTitle_datosInformante}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_motivoConsulta}"/>
+            <h:outputText value="#{enfermedadController.selected.motivoConsulta}" title="#{bundle.ViewEnfermedadTitle_motivoConsulta}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_tiempoEnfermedad}"/>
+            <h:outputText value="#{enfermedadController.selected.tiempoEnfermedad}" title="#{bundle.ViewEnfermedadTitle_tiempoEnfermedad}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_signosSintomas}"/>
+            <h:outputText value="#{enfermedadController.selected.signosSintomas}" title="#{bundle.ViewEnfermedadTitle_signosSintomas}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_relatoCronologico}"/>
+            <h:outputText value="#{enfermedadController.selected.relatoCronologico}" title="#{bundle.ViewEnfermedadTitle_relatoCronologico}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_funcionesBiologiacas}"/>
+            <h:outputText value="#{enfermedadController.selected.funcionesBiologiacas}" title="#{bundle.ViewEnfermedadTitle_funcionesBiologiacas}"/>
+            <h:outputText value="#{bundle.ViewEnfermedadLabel_idHistoriaClinica}"/>
+            <h:outputText value="#{enfermedadController.selected.idHistoriaClinica}" title="#{bundle.ViewEnfermedadTitle_idHistoriaClinica}"/>
+          </p:panelGrid>
+          <p:commandButton value="#{bundle.Close}" onclick="EnfermedadViewDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

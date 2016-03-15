@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition template="/templates/templateCool.xhtml">
+
+
+    <ui:define name="title">
+      <h:outputText value="#{bundle.ListExploracionfisicaTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="body">
+      <h:form id="ExploracionfisicaListForm">
+        <p:panel header="#{bundle.ListExploracionfisicaTitle}">
+          <p:dataTable id="datalist" value="#{exploracionfisicaController.items}" var="item"
+                       selectionMode="single" selection="#{exploracionfisicaController.selected}"
+                       paginator="true"
+                       rowKey="#{item.idExploracionFisica}"
+                       rows="10"
+                       rowsPerPageTemplate="10,20,30,40,50"
+                       >
+
+            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_idExploracionFisica}"/>
+              </f:facet>
+              <h:outputText value="#{item.idExploracionFisica}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_signosVitales}"/>
+              </f:facet>
+              <h:outputText value="#{item.signosVitales}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_pulso}"/>
+              </f:facet>
+              <h:outputText value="#{item.pulso}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_temperatura}"/>
+              </f:facet>
+              <h:outputText value="#{item.temperatura}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_fc}"/>
+              </f:facet>
+              <h:outputText value="#{item.fc}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_frecuenciaRespiratoria}"/>
+              </f:facet>
+              <h:outputText value="#{item.frecuenciaRespiratoria}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_examenClinicoGeneral}"/>
+              </f:facet>
+              <h:outputText value="#{item.examenClinicoGeneral}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_odontoestomatologico}"/>
+              </f:facet>
+              <h:outputText value="#{item.odontoestomatologico}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListExploracionfisicaTitle_idHistoriaClinica}"/>
+              </f:facet>
+              <h:outputText value="#{item.idHistoriaClinica}"/>
+            </p:column>
+            <f:facet name="footer">
+              <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{exploracionfisicaController.prepareCreate}" update=":ExploracionfisicaCreateForm" oncomplete="PF('ExploracionfisicaCreateDialog').show()"/>
+              <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ExploracionfisicaViewForm" oncomplete="PF('ExploracionfisicaViewDialog').show()" disabled="#{empty exploracionfisicaController.selected}"/>
+              <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ExploracionfisicaEditForm" oncomplete="PF('ExploracionfisicaEditDialog').show()" disabled="#{empty exploracionfisicaController.selected}"/>
+              <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{exploracionfisicaController.destroy}" update=":growl,datalist" disabled="#{empty exploracionfisicaController.selected}"/>
+            </f:facet>
+          </p:dataTable>
+        </p:panel>
+      </h:form>
+
+      <ui:include src="Create.xhtml"/>
+      <ui:include src="Edit.xhtml"/>
+      <ui:include src="View.xhtml"/>
+    </ui:define>
+  </ui:composition>
+
+</html>

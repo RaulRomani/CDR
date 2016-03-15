@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="ExploracionfisicaViewDlg" widgetVar="ExploracionfisicaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExploracionfisicaTitle}">
+      <h:form id="ExploracionfisicaViewForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{exploracionfisicaController.selected != null}">
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_idExploracionFisica}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.idExploracionFisica}" title="#{bundle.ViewExploracionfisicaTitle_idExploracionFisica}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_signosVitales}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.signosVitales}" title="#{bundle.ViewExploracionfisicaTitle_signosVitales}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_pulso}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.pulso}" title="#{bundle.ViewExploracionfisicaTitle_pulso}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_temperatura}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.temperatura}" title="#{bundle.ViewExploracionfisicaTitle_temperatura}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_fc}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.fc}" title="#{bundle.ViewExploracionfisicaTitle_fc}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_frecuenciaRespiratoria}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.frecuenciaRespiratoria}" title="#{bundle.ViewExploracionfisicaTitle_frecuenciaRespiratoria}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_examenClinicoGeneral}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.examenClinicoGeneral}" title="#{bundle.ViewExploracionfisicaTitle_examenClinicoGeneral}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_odontoestomatologico}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.odontoestomatologico}" title="#{bundle.ViewExploracionfisicaTitle_odontoestomatologico}"/>
+            <h:outputText value="#{bundle.ViewExploracionfisicaLabel_idHistoriaClinica}"/>
+            <h:outputText value="#{exploracionfisicaController.selected.idHistoriaClinica}" title="#{bundle.ViewExploracionfisicaTitle_idHistoriaClinica}"/>
+          </p:panelGrid>
+          <p:commandButton value="#{bundle.Close}" onclick="ExploracionfisicaViewDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

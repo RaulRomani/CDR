@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="PersonalViewDlg" widgetVar="PersonalViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonalTitle}">
+      <h:form id="PersonalViewForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{personalController.selected != null}">
+            <h:outputText value="#{bundle.ViewPersonalLabel_idPersonal}"/>
+            <h:outputText value="#{personalController.selected.idPersonal}" title="#{bundle.ViewPersonalTitle_idPersonal}"/>
+            <h:outputText value="#{bundle.ViewPersonalLabel_nombres}"/>
+            <h:outputText value="#{personalController.selected.nombres}" title="#{bundle.ViewPersonalTitle_nombres}"/>
+            <h:outputText value="#{bundle.ViewPersonalLabel_apellidos}"/>
+            <h:outputText value="#{personalController.selected.apellidos}" title="#{bundle.ViewPersonalTitle_apellidos}"/>
+            <h:outputText value="#{bundle.ViewPersonalLabel_especialidad}"/>
+            <h:outputText value="#{personalController.selected.especialidad}" title="#{bundle.ViewPersonalTitle_especialidad}"/>
+            <h:outputText value="#{bundle.ViewPersonalLabel_usuario}"/>
+            <h:outputText value="#{personalController.selected.usuario}" title="#{bundle.ViewPersonalTitle_usuario}"/>
+            <h:outputText value="#{bundle.ViewPersonalLabel_clave}"/>
+            <h:outputText value="#{personalController.selected.clave}" title="#{bundle.ViewPersonalTitle_clave}"/>
+          </p:panelGrid>
+          <p:commandButton value="#{bundle.Close}" onclick="PersonalViewDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

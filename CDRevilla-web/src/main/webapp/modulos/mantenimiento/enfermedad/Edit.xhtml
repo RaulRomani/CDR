@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="EnfermedadEditDlg" widgetVar="EnfermedadEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEnfermedadTitle}">
+      <h:form id="EnfermedadEditForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{enfermedadController.selected != null}">
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_idEnfermedad}" for="idEnfermedad" />
+            <p:inputText id="idEnfermedad" value="#{enfermedadController.selected.idEnfermedad}" title="#{bundle.EditEnfermedadTitle_idEnfermedad}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_idEnfermedad}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_datosInformante}" for="datosInformante" />
+            <p:inputText id="datosInformante" value="#{enfermedadController.selected.datosInformante}" title="#{bundle.EditEnfermedadTitle_datosInformante}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_datosInformante}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_motivoConsulta}" for="motivoConsulta" />
+            <p:inputText id="motivoConsulta" value="#{enfermedadController.selected.motivoConsulta}" title="#{bundle.EditEnfermedadTitle_motivoConsulta}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_motivoConsulta}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_tiempoEnfermedad}" for="tiempoEnfermedad" />
+            <p:inputText id="tiempoEnfermedad" value="#{enfermedadController.selected.tiempoEnfermedad}" title="#{bundle.EditEnfermedadTitle_tiempoEnfermedad}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_tiempoEnfermedad}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_signosSintomas}" for="signosSintomas" />
+            <p:inputText id="signosSintomas" value="#{enfermedadController.selected.signosSintomas}" title="#{bundle.EditEnfermedadTitle_signosSintomas}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_signosSintomas}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_relatoCronologico}" for="relatoCronologico" />
+            <p:inputText id="relatoCronologico" value="#{enfermedadController.selected.relatoCronologico}" title="#{bundle.EditEnfermedadTitle_relatoCronologico}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_relatoCronologico}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_funcionesBiologiacas}" for="funcionesBiologiacas" />
+            <p:inputText id="funcionesBiologiacas" value="#{enfermedadController.selected.funcionesBiologiacas}" title="#{bundle.EditEnfermedadTitle_funcionesBiologiacas}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_funcionesBiologiacas}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_idHistoriaClinica}" for="idHistoriaClinica" />
+            <p:selectOneMenu id="idHistoriaClinica" value="#{enfermedadController.selected.idHistoriaClinica}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_idHistoriaClinica}">
+              <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+              <f:selectItems value="#{historiaclinicaController.itemsAvailableSelectOne}"
+                             var="idHistoriaClinicaItem"
+                             itemValue="#{idHistoriaClinicaItem}"/>
+            </p:selectOneMenu>
+          </p:panelGrid>
+          <p:commandButton actionListener="#{enfermedadController.update}" value="#{bundle.Save}" update="display,:EnfermedadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EnfermedadEditDialog');"/>
+          <p:commandButton value="#{bundle.Cancel}" onclick="EnfermedadEditDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

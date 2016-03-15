@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="HistoriaclinicaEditDlg" widgetVar="HistoriaclinicaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditHistoriaclinicaTitle}">
+      <h:form id="HistoriaclinicaEditForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{historiaclinicaController.selected != null}">
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_idHistoriaClinica}" for="idHistoriaClinica" />
+            <p:inputText id="idHistoriaClinica" value="#{historiaclinicaController.selected.idHistoriaClinica}" title="#{bundle.EditHistoriaclinicaTitle_idHistoriaClinica}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_idHistoriaClinica}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_fechaAtencion}" for="fechaAtencion" />
+            <p:calendar id="fechaAtencion" pattern="MM/dd/yyyy HH:mm:ss" value="#{historiaclinicaController.selected.fechaAtencion}" title="#{bundle.EditHistoriaclinicaTitle_fechaAtencion}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_fechaAtencion}" showOn="button"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_idEnfermedad}" for="idEnfermedad" />
+            <p:inputText id="idEnfermedad" value="#{historiaclinicaController.selected.idEnfermedad}" title="#{bundle.EditHistoriaclinicaTitle_idEnfermedad}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_idEnfermedad}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_antecedentesFamiliares}" for="antecedentesFamiliares" />
+            <p:inputText id="antecedentesFamiliares" value="#{historiaclinicaController.selected.antecedentesFamiliares}" title="#{bundle.EditHistoriaclinicaTitle_antecedentesFamiliares}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_antecedentesFamiliares}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_antecedentesPersonales}" for="antecedentesPersonales" />
+            <p:inputText id="antecedentesPersonales" value="#{historiaclinicaController.selected.antecedentesPersonales}" title="#{bundle.EditHistoriaclinicaTitle_antecedentesPersonales}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_antecedentesPersonales}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_idExploracionFisica}" for="idExploracionFisica" />
+            <p:inputText id="idExploracionFisica" value="#{historiaclinicaController.selected.idExploracionFisica}" title="#{bundle.EditHistoriaclinicaTitle_idExploracionFisica}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_idExploracionFisica}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_diagnosticoPresuntivo}" for="diagnosticoPresuntivo" />
+            <p:inputText id="diagnosticoPresuntivo" value="#{historiaclinicaController.selected.diagnosticoPresuntivo}" title="#{bundle.EditHistoriaclinicaTitle_diagnosticoPresuntivo}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_diagnosticoPresuntivo}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_diagnosticoDefinitivo}" for="diagnosticoDefinitivo" />
+            <p:inputText id="diagnosticoDefinitivo" value="#{historiaclinicaController.selected.diagnosticoDefinitivo}" title="#{bundle.EditHistoriaclinicaTitle_diagnosticoDefinitivo}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_diagnosticoDefinitivo}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_planTrabajo}" for="planTrabajo" />
+            <p:inputText id="planTrabajo" value="#{historiaclinicaController.selected.planTrabajo}" title="#{bundle.EditHistoriaclinicaTitle_planTrabajo}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_planTrabajo}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_pronostico}" for="pronostico" />
+            <p:inputText id="pronostico" value="#{historiaclinicaController.selected.pronostico}" title="#{bundle.EditHistoriaclinicaTitle_pronostico}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_pronostico}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_tratamientoRecomendacion}" for="tratamientoRecomendacion" />
+            <p:inputText id="tratamientoRecomendacion" value="#{historiaclinicaController.selected.tratamientoRecomendacion}" title="#{bundle.EditHistoriaclinicaTitle_tratamientoRecomendacion}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_tratamientoRecomendacion}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_altaPaciente}" for="altaPaciente" />
+            <p:inputText id="altaPaciente" value="#{historiaclinicaController.selected.altaPaciente}" title="#{bundle.EditHistoriaclinicaTitle_altaPaciente}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_altaPaciente}"/>
+            <p:outputLabel value="#{bundle.EditHistoriaclinicaLabel_idPaciente}" for="idPaciente" />
+            <p:selectOneMenu id="idPaciente" value="#{historiaclinicaController.selected.idPaciente}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_idPaciente}">
+              <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+              <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
+                             var="idPacienteItem"
+                             itemValue="#{idPacienteItem}"/>
+            </p:selectOneMenu>
+          </p:panelGrid>
+          <p:commandButton actionListener="#{historiaclinicaController.update}" value="#{bundle.Save}" update="display,:HistoriaclinicaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HistoriaclinicaEditDialog');"/>
+          <p:commandButton value="#{bundle.Cancel}" onclick="HistoriaclinicaEditDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

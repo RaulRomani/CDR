@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="PacienteCreateDlg" widgetVar="PacienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePacienteTitle}">
+      <h:form id="PacienteCreateForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{pacienteController.selected != null}">
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_idPaciente}" for="idPaciente" />
+            <p:inputText id="idPaciente" value="#{pacienteController.selected.idPaciente}" title="#{bundle.CreatePacienteTitle_idPaciente}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_idPaciente}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_nombre}" for="nombre" />
+            <p:inputText id="nombre" value="#{pacienteController.selected.nombre}" title="#{bundle.CreatePacienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_nombre}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_apelllidos}" for="apelllidos" />
+            <p:inputText id="apelllidos" value="#{pacienteController.selected.apelllidos}" title="#{bundle.CreatePacienteTitle_apelllidos}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_apelllidos}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_dni}" for="dni" />
+            <p:inputText id="dni" value="#{pacienteController.selected.dni}" title="#{bundle.CreatePacienteTitle_dni}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_dni}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_direccion}" for="direccion" />
+            <p:inputText id="direccion" value="#{pacienteController.selected.direccion}" title="#{bundle.CreatePacienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_direccion}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_lugarNacimiento}" for="lugarNacimiento" />
+            <p:inputText id="lugarNacimiento" value="#{pacienteController.selected.lugarNacimiento}" title="#{bundle.CreatePacienteTitle_lugarNacimiento}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_lugarNacimiento}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_celular}" for="celular" />
+            <p:inputText id="celular" value="#{pacienteController.selected.celular}" title="#{bundle.CreatePacienteTitle_celular}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_celular}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_sexo}" for="sexo" />
+            <p:inputText id="sexo" value="#{pacienteController.selected.sexo}" title="#{bundle.CreatePacienteTitle_sexo}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_sexo}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_edad}" for="edad" />
+            <p:inputText id="edad" value="#{pacienteController.selected.edad}" title="#{bundle.CreatePacienteTitle_edad}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_edad}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_raza}" for="raza" />
+            <p:inputText id="raza" value="#{pacienteController.selected.raza}" title="#{bundle.CreatePacienteTitle_raza}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_raza}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_gradoInstruccion}" for="gradoInstruccion" />
+            <p:inputText id="gradoInstruccion" value="#{pacienteController.selected.gradoInstruccion}" title="#{bundle.CreatePacienteTitle_gradoInstruccion}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_gradoInstruccion}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_ocupación}" for="ocupación" />
+            <p:inputText id="ocupación" value="#{pacienteController.selected.ocupación}" title="#{bundle.CreatePacienteTitle_ocupación}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_ocupación}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_religion}" for="religion" />
+            <p:inputText id="religion" value="#{pacienteController.selected.religion}" title="#{bundle.CreatePacienteTitle_religion}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_religion}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_estadoCivil}" for="estadoCivil" />
+            <p:inputText id="estadoCivil" value="#{pacienteController.selected.estadoCivil}" title="#{bundle.CreatePacienteTitle_estadoCivil}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_estadoCivil}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_foto}" for="foto" />
+            <p:inputText id="foto" value="#{pacienteController.selected.foto}" title="#{bundle.CreatePacienteTitle_foto}" required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_foto}"/>
+            <p:outputLabel value="#{bundle.CreatePacienteLabel_fechaApertura}" for="fechaApertura" />
+            <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{pacienteController.selected.fechaApertura}" title="#{bundle.EditPacienteTitle_fechaApertura}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_fechaApertura}" showOn="button"/>
+          </p:panelGrid>
+          <p:commandButton actionListener="#{pacienteController.create}" value="#{bundle.Save}" update="display,:PacienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'PacienteCreateDialog');"/>
+          <p:commandButton value="#{bundle.Cancel}" onclick="PacienteCreateDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

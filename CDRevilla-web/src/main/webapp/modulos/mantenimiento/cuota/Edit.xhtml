@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="CuotaEditDlg" widgetVar="CuotaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCuotaTitle}">
+      <h:form id="CuotaEditForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{cuotaController.selected != null}">
+            <p:outputLabel value="#{bundle.EditCuotaLabel_idCuota}" for="idCuota" />
+            <p:inputText id="idCuota" value="#{cuotaController.selected.idCuota}" title="#{bundle.EditCuotaTitle_idCuota}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_idCuota}"/>
+            <p:outputLabel value="#{bundle.EditCuotaLabel_totalcuotas}" for="totalcuotas" />
+            <p:inputText id="totalcuotas" value="#{cuotaController.selected.totalcuotas}" title="#{bundle.EditCuotaTitle_totalcuotas}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_totalcuotas}"/>
+            <p:outputLabel value="#{bundle.EditCuotaLabel_cuotaspagado}" for="cuotaspagado" />
+            <p:inputText id="cuotaspagado" value="#{cuotaController.selected.cuotaspagado}" title="#{bundle.EditCuotaTitle_cuotaspagado}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_cuotaspagado}"/>
+            <p:outputLabel value="#{bundle.EditCuotaLabel_fecha}" for="fecha" />
+            <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{cuotaController.selected.fecha}" title="#{bundle.EditCuotaTitle_fecha}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_fecha}" showOn="button"/>
+            <p:outputLabel value="#{bundle.EditCuotaLabel_plazo}" for="plazo" />
+            <p:inputText id="plazo" value="#{cuotaController.selected.plazo}" title="#{bundle.EditCuotaTitle_plazo}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_plazo}"/>
+            <p:outputLabel value="#{bundle.EditCuotaLabel_importe}" for="importe" />
+            <p:inputText id="importe" value="#{cuotaController.selected.importe}" title="#{bundle.EditCuotaTitle_importe}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_importe}"/>
+            <p:outputLabel value="#{bundle.EditCuotaLabel_idVenta}" for="idVenta" />
+            <p:selectOneMenu id="idVenta" value="#{cuotaController.selected.idVenta}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_idVenta}">
+              <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+              <f:selectItems value="#{ventaController.itemsAvailableSelectOne}"
+                             var="idVentaItem"
+                             itemValue="#{idVentaItem}"/>
+            </p:selectOneMenu>
+          </p:panelGrid>
+          <p:commandButton actionListener="#{cuotaController.update}" value="#{bundle.Save}" update="display,:CuotaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CuotaEditDialog');"/>
+          <p:commandButton value="#{bundle.Cancel}" onclick="CuotaEditDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="PacienteEditDlg" widgetVar="PacienteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPacienteTitle}">
+      <h:form id="PacienteEditForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{pacienteController.selected != null}">
+            <p:outputLabel value="#{bundle.EditPacienteLabel_idPaciente}" for="idPaciente" />
+            <p:inputText id="idPaciente" value="#{pacienteController.selected.idPaciente}" title="#{bundle.EditPacienteTitle_idPaciente}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_idPaciente}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_nombre}" for="nombre" />
+            <p:inputText id="nombre" value="#{pacienteController.selected.nombre}" title="#{bundle.EditPacienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_nombre}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_apelllidos}" for="apelllidos" />
+            <p:inputText id="apelllidos" value="#{pacienteController.selected.apelllidos}" title="#{bundle.EditPacienteTitle_apelllidos}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_apelllidos}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_dni}" for="dni" />
+            <p:inputText id="dni" value="#{pacienteController.selected.dni}" title="#{bundle.EditPacienteTitle_dni}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_dni}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_direccion}" for="direccion" />
+            <p:inputText id="direccion" value="#{pacienteController.selected.direccion}" title="#{bundle.EditPacienteTitle_direccion}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_direccion}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_lugarNacimiento}" for="lugarNacimiento" />
+            <p:inputText id="lugarNacimiento" value="#{pacienteController.selected.lugarNacimiento}" title="#{bundle.EditPacienteTitle_lugarNacimiento}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_lugarNacimiento}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_celular}" for="celular" />
+            <p:inputText id="celular" value="#{pacienteController.selected.celular}" title="#{bundle.EditPacienteTitle_celular}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_celular}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_sexo}" for="sexo" />
+            <p:inputText id="sexo" value="#{pacienteController.selected.sexo}" title="#{bundle.EditPacienteTitle_sexo}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_sexo}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_edad}" for="edad" />
+            <p:inputText id="edad" value="#{pacienteController.selected.edad}" title="#{bundle.EditPacienteTitle_edad}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_edad}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_raza}" for="raza" />
+            <p:inputText id="raza" value="#{pacienteController.selected.raza}" title="#{bundle.EditPacienteTitle_raza}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_raza}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_gradoInstruccion}" for="gradoInstruccion" />
+            <p:inputText id="gradoInstruccion" value="#{pacienteController.selected.gradoInstruccion}" title="#{bundle.EditPacienteTitle_gradoInstruccion}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_gradoInstruccion}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_ocupación}" for="ocupación" />
+            <p:inputText id="ocupación" value="#{pacienteController.selected.ocupación}" title="#{bundle.EditPacienteTitle_ocupación}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_ocupación}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_religion}" for="religion" />
+            <p:inputText id="religion" value="#{pacienteController.selected.religion}" title="#{bundle.EditPacienteTitle_religion}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_religion}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_estadoCivil}" for="estadoCivil" />
+            <p:inputText id="estadoCivil" value="#{pacienteController.selected.estadoCivil}" title="#{bundle.EditPacienteTitle_estadoCivil}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_estadoCivil}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_foto}" for="foto" />
+            <p:inputText id="foto" value="#{pacienteController.selected.foto}" title="#{bundle.EditPacienteTitle_foto}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_foto}"/>
+            <p:outputLabel value="#{bundle.EditPacienteLabel_fechaApertura}" for="fechaApertura" />
+            <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{pacienteController.selected.fechaApertura}" title="#{bundle.EditPacienteTitle_fechaApertura}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_fechaApertura}" showOn="button"/>
+          </p:panelGrid>
+          <p:commandButton actionListener="#{pacienteController.update}" value="#{bundle.Save}" update="display,:PacienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PacienteEditDialog');"/>
+          <p:commandButton value="#{bundle.Cancel}" onclick="PacienteEditDialog.hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition template="/templates/templateCool.xhtml">
+
+
+    <ui:define name="title">
+      <h:outputText value="#{bundle.ListHistoriaclinicaTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="body">
+      <h:form id="HistoriaclinicaListForm">
+        <p:panel header="#{bundle.ListHistoriaclinicaTitle}">
+          <p:dataTable id="datalist" value="#{historiaclinicaController.items}" var="item"
+                       selectionMode="single" selection="#{historiaclinicaController.selected}"
+                       paginator="true"
+                       rowKey="#{item.idHistoriaClinica}"
+                       rows="10"
+                       rowsPerPageTemplate="10,20,30,40,50"
+                       >
+
+            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_idHistoriaClinica}"/>
+              </f:facet>
+              <h:outputText value="#{item.idHistoriaClinica}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_fechaAtencion}"/>
+              </f:facet>
+              <h:outputText value="#{item.fechaAtencion}">
+                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+              </h:outputText>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_idEnfermedad}"/>
+              </f:facet>
+              <h:outputText value="#{item.idEnfermedad}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_antecedentesFamiliares}"/>
+              </f:facet>
+              <h:outputText value="#{item.antecedentesFamiliares}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_antecedentesPersonales}"/>
+              </f:facet>
+              <h:outputText value="#{item.antecedentesPersonales}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_idExploracionFisica}"/>
+              </f:facet>
+              <h:outputText value="#{item.idExploracionFisica}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_diagnosticoPresuntivo}"/>
+              </f:facet>
+              <h:outputText value="#{item.diagnosticoPresuntivo}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_diagnosticoDefinitivo}"/>
+              </f:facet>
+              <h:outputText value="#{item.diagnosticoDefinitivo}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_planTrabajo}"/>
+              </f:facet>
+              <h:outputText value="#{item.planTrabajo}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_pronostico}"/>
+              </f:facet>
+              <h:outputText value="#{item.pronostico}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_tratamientoRecomendacion}"/>
+              </f:facet>
+              <h:outputText value="#{item.tratamientoRecomendacion}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_altaPaciente}"/>
+              </f:facet>
+              <h:outputText value="#{item.altaPaciente}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="#{bundle.ListHistoriaclinicaTitle_idPaciente}"/>
+              </f:facet>
+              <h:outputText value="#{item.idPaciente}"/>
+            </p:column>
+            <f:facet name="footer">
+              <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{historiaclinicaController.prepareCreate}" update=":HistoriaclinicaCreateForm" oncomplete="PF('HistoriaclinicaCreateDialog').show()"/>
+              <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":HistoriaclinicaViewForm" oncomplete="PF('HistoriaclinicaViewDialog').show()" disabled="#{empty historiaclinicaController.selected}"/>
+              <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":HistoriaclinicaEditForm" oncomplete="PF('HistoriaclinicaEditDialog').show()" disabled="#{empty historiaclinicaController.selected}"/>
+              <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{historiaclinicaController.destroy}" update=":growl,datalist" disabled="#{empty historiaclinicaController.selected}"/>
+            </f:facet>
+          </p:dataTable>
+        </p:panel>
+      </h:form>
+
+      <ui:include src="Create.xhtml"/>
+      <ui:include src="Edit.xhtml"/>
+      <ui:include src="View.xhtml"/>
+    </ui:define>
+  </ui:composition>
+
+</html>

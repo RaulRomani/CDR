@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  
+  
+    <ui:composition template="/templates/templateCool.xhtml">
+      <ui:define name="body">
+
+        
+
+        <div class="container">
+          
+          <h1 class="row" style="color: #269abc">Ventas</h1>
+          
+          <h:form>
+            <div class="row">
+              <div class="col-xs-3 dientes">
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                  <p:outputLabel  value="Cliente" />
+                  <p:selectOneMenu   style="width:125px">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="Raúl" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="Carlos" itemValue="PS4" />
+                    <f:selectItem itemLabel="Yuri" itemValue="Wii U" />
+                  </p:selectOneMenu>
+                  <p:outputLabel for="diente" value="Diente: " />
+                  <p:selectOneMenu id="diente"  style="width:125px">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="A" itemValue="" />
+                    <f:selectItem itemLabel="b" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="c" itemValue="PS4" />
+                    <f:selectItem itemLabel="D" itemValue="Wii U" />
+                  </p:selectOneMenu>
+                  <p:outputLabel for="servicio" value="Servicio:  " />
+                  <p:selectOneMenu id="servicio"  style="width:125px">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="Ododoncia" itemValue="" />
+                    <f:selectItem itemLabel="Ortodoncia" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="Extracción" itemValue="PS4" />
+                  </p:selectOneMenu>
+
+<!--<p:commandButton actionListener="#{historia.addExploracionFisica()}" value="#{bundle.Save}" update="display,:formId:datalistExploracion,:growl" />-->
+                  <p:commandButton value="Agregar" icon="ui-icon-plus"  />
+                </h:panelGrid>
+
+              </div>
+              <div class="col-xs-9 proforma">
+
+                <p:dataTable id="datalist" value="#{historia.enfermedades}" var="item">
+                  <p:column>
+                    <f:facet name="header">
+                      <h:outputText value="Cantidad"/>
+                    </f:facet>
+                    <h:outputText value=""/>
+                  </p:column>
+                  <p:column style="width: 400px;">
+                    <f:facet name="header">
+                      <h:outputText value="Descripción" />
+                    </f:facet>
+                    <h:outputText value="#{item.motivoConsulta}"/>
+                  </p:column>
+                  <p:column>
+                    <f:facet name="header">
+                      <h:outputText value="Costo unitario"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tiempoEnfermedad}"/>
+                  </p:column>
+                  <p:column>
+                    <f:facet name="header">
+                      <h:outputText value="Total"/>
+                    </f:facet>
+                    <h:outputText value="#{item.signosSintomas}"/>
+                  </p:column>
+                  
+                </p:dataTable>
+
+                <div class="row total">
+                  <div class="col-lg-4">
+                    <p:outputLabel  value="Total : " />
+                    <div style="margin-bottom: 25px" class="input-group">
+                      <span class="input-group-addon">S/.</span>
+                      <p:outputLabel value="0" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-offset-8" />
+                </div>
+
+                <div class="row forma-pago">
+                  <div class="col-lg-6">
+                    <h3>Forma de pago</h3>
+
+                    <p:tabView dynamic="true" cache="true">
+                      <p:tab title="Contado">
+                        
+                        <p:commandButton value="Cancelar" />
+                        
+                      </p:tab>
+                      <p:tab title="Cuotas">
+                        
+                        <div class="form-group row">
+                          <div class="col-lg-3 form-control-label">
+                            <p:outputLabel  value="Inicial" />
+                          </div>
+                          <div class="col-lg-9">
+                            <div style="margin-bottom: 25px" class="input-group">
+                              <span class="input-group-addon">S/.</span>
+                              <p:inputText value="" class="form-control"/>
+                            </div>
+                          </div>
+                          <div class="col-lg-offset-8" />
+                        </div>
+                          
+                        <div class="form-group row">
+                          <p:outputLabel class="col-sm-3 form-control-label" value="Nº de cuotas" />
+                          <div class="col-sm-9">
+                            <input type="email" class="form-control" id="inputEmail3" />
+                          </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                          <p:outputLabel class="col-sm-3 form-control-label" for="tiempo" value="Tiempo" />
+                          <div class="col-sm-9">
+                            <p:selectOneRadio id="tiempo" value="">
+                              <f:selectItem itemLabel="Mensual"
+                                            itemValue="MENSUAL"/>
+                              <f:selectItem itemLabel="Quincenal"
+                                            itemValue="QUINCENAL"/>
+                            </p:selectOneRadio>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                          <div class="col-lg-3 form-control-label">
+                            <p:outputLabel  value="Cuota a pagar" />
+                          </div>
+                          <div class="col-lg-9">
+                            <div style="margin-bottom: 25px" class="input-group">
+                              <span class="input-group-addon">S/.</span>
+                              <p:outputLabel value="0.00" class="form-control"/>
+                            </div>
+                          </div>
+                          <div class="col-lg-offset-8" />
+                        </div>
+                        
+                        <p:commandButton value="Guardar" />
+                        
+                        
+                      </p:tab>
+                    </p:tabView>
+
+                  </div>
+                  <div class="col-lg-offset-6" />
+                </div>
+
+
+
+              </div>
+
+            </div>
+          </h:form>
+        </div>
+
+
+      </ui:define>
+    </ui:composition>
+</html>
+
