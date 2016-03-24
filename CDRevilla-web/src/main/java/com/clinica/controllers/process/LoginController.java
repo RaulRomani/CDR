@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.clinica.controllers;
+package com.clinica.controllers.process;
 
+import com.clinica.controllers.util.JsfUtil;
+import com.clinica.controllers.util.Log4jConfig;
 import com.clinica.entidades.Personal;
 import com.clinica.fachadas.PersonalFacadeLocal;
 import javax.inject.Named;
@@ -15,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -38,26 +41,57 @@ public class LoginController implements Serializable {
   @EJB
   private com.clinica.fachadas.PersonalFacadeLocal ejbFacade;
   
-  private String joder;
+  
+  final static Logger logger = Log4jConfig.getLogger(LoginController.class.getName());
+  
+  
+  public void checkSession() {
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    
+    Personal p = (Personal) context.getExternalContext().getSessionMap().get("user");
+    if(p == null){
+      
+      
+      
+      logger.info("seguridad");
+      
+      context.getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/login?faces-redirect=true");
+      JsfUtil.addErrorMessage("Primero inicie sesión");
+      
+    } else {
+      logger.info("Sesion de usuario existente!");
+      //FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+      
+    }
+
+  }
 
   public String validar() {
     
     Personal p =null;
     p = ejbFacade.validar(personal.getUsuario(), personal.getClave());
     if (p != null) {
-      setPersonal(p);
-      setJoder("joder..");
+      personal = p;
       
-      RequestContext.getCurrentInstance().update("growl");
-      FacesContext context = FacesContext.getCurrentInstance();
-      context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",personal.getNombres()));
+      //creamos una sesion jsf usuario
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", p);
+      
+//      RequestContext.getCurrentInstance().update("growl");
+//      FacesContext context = FacesContext.getCurrentInstance();
+//      context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",personal.getNombres()));
+      
+      JsfUtil.addSuccessMessage("Bienvenido " +p.getNombres());
       
       return "main?faces-redirect=true"; // Pagina a Redireccionar
     } else {
       RequestContext.getCurrentInstance().update("growl");
       FacesContext context = FacesContext.getCurrentInstance();
       context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Usuario o contraseña es invalido"));
+      
+      JsfUtil.addErrorMessage("Error sin growl");
       return "";
+      
       
       //return "main?faces-redirect=true"; // Pagina a Redireccionar
     }
@@ -101,20 +135,10 @@ public class LoginController implements Serializable {
     this.personal = personal;
   }
   
-  public PersonalFacadeLocal getEjbFacade() {
-    return ejbFacade;
+  public String nombreApellidoPersonal(){
+    return personal.getNombres() + " " + personal.getApellidos();
   }
+    
 
-  public void setEjbFacade(PersonalFacadeLocal ejbFacade) {
-    this.ejbFacade = ejbFacade;
-  }
-
-  public String getJoder() {
-    return joder;
-  }
-
-  public void setJoder(String joder) {
-    this.joder = joder;
-  }
 
 }

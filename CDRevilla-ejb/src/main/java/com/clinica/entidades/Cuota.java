@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity; 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
   @NamedQuery(name = "Cuota.findByCuotaspagado", query = "SELECT c FROM Cuota c WHERE c.cuotaspagado = :cuotaspagado"),
   @NamedQuery(name = "Cuota.findByFecha", query = "SELECT c FROM Cuota c WHERE c.fecha = :fecha"),
   @NamedQuery(name = "Cuota.findByPlazo", query = "SELECT c FROM Cuota c WHERE c.plazo = :plazo"),
+  @NamedQuery(name = "Cuota.findByInicial", query = "SELECT c FROM Cuota c WHERE c.inicial = :inicial"),
   @NamedQuery(name = "Cuota.findByImporte", query = "SELECT c FROM Cuota c WHERE c.importe = :importe")})
 public class Cuota implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -68,6 +69,10 @@ public class Cuota implements Serializable {
   // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
   @Basic(optional = false)
   @NotNull
+  @Column(name = "inicial")
+  private BigDecimal inicial;
+  @Basic(optional = false)
+  @NotNull
   @Column(name = "importe")
   private BigDecimal importe;
   @JoinColumn(name = "IdVenta", referencedColumnName = "IdVenta")
@@ -81,12 +86,13 @@ public class Cuota implements Serializable {
     this.idCuota = idCuota;
   }
 
-  public Cuota(Integer idCuota, int totalcuotas, int cuotaspagado, Date fecha, String plazo, BigDecimal importe) {
+  public Cuota(Integer idCuota, int totalcuotas, int cuotaspagado, Date fecha, String plazo, BigDecimal inicial, BigDecimal importe) {
     this.idCuota = idCuota;
     this.totalcuotas = totalcuotas;
     this.cuotaspagado = cuotaspagado;
     this.fecha = fecha;
     this.plazo = plazo;
+    this.inicial = inicial;
     this.importe = importe;
   }
 
@@ -128,6 +134,14 @@ public class Cuota implements Serializable {
 
   public void setPlazo(String plazo) {
     this.plazo = plazo;
+  }
+
+  public BigDecimal getInicial() {
+    return inicial;
+  }
+
+  public void setInicial(BigDecimal inicial) {
+    this.inicial = inicial;
   }
 
   public BigDecimal getImporte() {

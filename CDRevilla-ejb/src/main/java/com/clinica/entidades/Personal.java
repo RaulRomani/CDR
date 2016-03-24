@@ -36,10 +36,17 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Personal.findByNombres", query = "SELECT p FROM Personal p WHERE p.nombres = :nombres"),
   @NamedQuery(name = "Personal.findByApellidos", query = "SELECT p FROM Personal p WHERE p.apellidos = :apellidos"),
   @NamedQuery(name = "Personal.findByEspecialidad", query = "SELECT p FROM Personal p WHERE p.especialidad = :especialidad"),
+  @NamedQuery(name = "Personal.findByDni", query = "SELECT p FROM Personal p WHERE p.dni = :dni"),
+  @NamedQuery(name = "Personal.findByFoto", query = "SELECT p FROM Personal p WHERE p.foto = :foto"),
+  @NamedQuery(name = "Personal.findByDireccion", query = "SELECT p FROM Personal p WHERE p.direccion = :direccion"),
+  @NamedQuery(name = "Personal.findByLugarNacimiento", query = "SELECT p FROM Personal p WHERE p.lugarNacimiento = :lugarNacimiento"),
+  @NamedQuery(name = "Personal.findByCelular", query = "SELECT p FROM Personal p WHERE p.celular = :celular"),
+  @NamedQuery(name = "Personal.findBySexo", query = "SELECT p FROM Personal p WHERE p.sexo = :sexo"),
+  @NamedQuery(name = "Personal.findByEdad", query = "SELECT p FROM Personal p WHERE p.edad = :edad"),
   @NamedQuery(name = "Personal.findByUsuario", query = "SELECT p FROM Personal p WHERE p.usuario = :usuario"),
   @NamedQuery(name = "Personal.findByClave", query = "SELECT p FROM Personal p WHERE p.clave = :clave"),
+  @NamedQuery(name = "Personal.findByRol", query = "SELECT p FROM Personal p WHERE p.rol = :rol"),
   @NamedQuery(name = "validar", query = "SELECT p FROM Personal p WHERE p.clave = :clave and p.usuario = :usuario")})
-
 public class Personal implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id
@@ -49,29 +56,57 @@ public class Personal implements Serializable {
   private Integer idPersonal;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 50)
   @Column(name = "Nombres")
   private String nombres;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 100)
   @Column(name = "Apellidos")
   private String apellidos;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 100)
   @Column(name = "Especialidad")
   private String especialidad;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 8)
+  @Column(name = "DNI")
+  private String dni;
+  @Size(max = 100)
+  @Column(name = "Foto")
+  private String foto;
+  @Size(max = 100)
+  @Column(name = "Direccion")
+  private String direccion;
+  @Size(max = 200)
+  @Column(name = "LugarNacimiento")
+  private String lugarNacimiento;
+  @Size(max = 20)
+  @Column(name = "Celular")
+  private String celular;
+  @Size(max = 10)
+  @Column(name = "Sexo")
+  private String sexo;
+  @Size(max = 3)
+  @Column(name = "Edad")
+  private String edad;
+  @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 50)
   @Column(name = "usuario")
   private String usuario;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 50)
   @Column(name = "clave")
   private String clave;
+  @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 50)
+  @Column(name = "rol")
+  private String rol;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersonal")
   private List<Venta> ventaList;
 
@@ -82,13 +117,15 @@ public class Personal implements Serializable {
     this.idPersonal = idPersonal;
   }
 
-  public Personal(Integer idPersonal, String nombres, String apellidos, String especialidad, String usuario, String clave) {
+  public Personal(Integer idPersonal, String nombres, String apellidos, String especialidad, String dni, String usuario, String clave, String rol) {
     this.idPersonal = idPersonal;
     this.nombres = nombres;
     this.apellidos = apellidos;
     this.especialidad = especialidad;
+    this.dni = dni;
     this.usuario = usuario;
     this.clave = clave;
+    this.rol = rol;
   }
 
   public Integer getIdPersonal() {
@@ -123,6 +160,62 @@ public class Personal implements Serializable {
     this.especialidad = especialidad;
   }
 
+  public String getDni() {
+    return dni;
+  }
+
+  public void setDni(String dni) {
+    this.dni = dni;
+  }
+
+  public String getFoto() {
+    return foto;
+  }
+
+  public void setFoto(String foto) {
+    this.foto = foto;
+  }
+
+  public String getDireccion() {
+    return direccion;
+  }
+
+  public void setDireccion(String direccion) {
+    this.direccion = direccion;
+  }
+
+  public String getLugarNacimiento() {
+    return lugarNacimiento;
+  }
+
+  public void setLugarNacimiento(String lugarNacimiento) {
+    this.lugarNacimiento = lugarNacimiento;
+  }
+
+  public String getCelular() {
+    return celular;
+  }
+
+  public void setCelular(String celular) {
+    this.celular = celular;
+  }
+
+  public String getSexo() {
+    return sexo;
+  }
+
+  public void setSexo(String sexo) {
+    this.sexo = sexo;
+  }
+
+  public String getEdad() {
+    return edad;
+  }
+
+  public void setEdad(String edad) {
+    this.edad = edad;
+  }
+
   public String getUsuario() {
     return usuario;
   }
@@ -137,6 +230,14 @@ public class Personal implements Serializable {
 
   public void setClave(String clave) {
     this.clave = clave;
+  }
+
+  public String getRol() {
+    return rol;
+  }
+
+  public void setRol(String rol) {
+    this.rol = rol;
   }
 
   @XmlTransient

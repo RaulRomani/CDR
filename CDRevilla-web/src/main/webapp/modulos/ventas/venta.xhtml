@@ -5,167 +5,248 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  
-  
-    <ui:composition template="/templates/templateCool.xhtml">
-      <ui:define name="body">
 
-        
 
-        <div class="container">
-          
-          <h1 class="row" style="color: #269abc">Ventas</h1>
-          
-          <h:form>
-            <div class="row">
-              <div class="col-xs-3 dientes">
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                  <p:outputLabel  value="Cliente" />
-                  <p:selectOneMenu   style="width:125px">
-                    <f:selectItem itemLabel="Seleccione" itemValue="" />
-                    <f:selectItem itemLabel="Raúl" itemValue="Xbox One" />
-                    <f:selectItem itemLabel="Carlos" itemValue="PS4" />
-                    <f:selectItem itemLabel="Yuri" itemValue="Wii U" />
-                  </p:selectOneMenu>
-                  <p:outputLabel for="diente" value="Diente: " />
-                  <p:selectOneMenu id="diente"  style="width:125px">
-                    <f:selectItem itemLabel="Seleccione" itemValue="" />
-                    <f:selectItem itemLabel="A" itemValue="" />
-                    <f:selectItem itemLabel="b" itemValue="Xbox One" />
-                    <f:selectItem itemLabel="c" itemValue="PS4" />
-                    <f:selectItem itemLabel="D" itemValue="Wii U" />
-                  </p:selectOneMenu>
-                  <p:outputLabel for="servicio" value="Servicio:  " />
-                  <p:selectOneMenu id="servicio"  style="width:125px">
-                    <f:selectItem itemLabel="Seleccione" itemValue="" />
-                    <f:selectItem itemLabel="Ododoncia" itemValue="" />
-                    <f:selectItem itemLabel="Ortodoncia" itemValue="Xbox One" />
-                    <f:selectItem itemLabel="Extracción" itemValue="PS4" />
-                  </p:selectOneMenu>
+  <ui:composition template="/templates/templateCool.xhtml">
+    <ui:define name="body">
 
-<!--<p:commandButton actionListener="#{historia.addExploracionFisica()}" value="#{bundle.Save}" update="display,:formId:datalistExploracion,:growl" />-->
-                  <p:commandButton value="Agregar" icon="ui-icon-plus"  />
-                </h:panelGrid>
+      <div class="container">
+        <h1 class="row" style="color: #269abc">Ventas</h1>
 
+
+        <div class="row">
+          <h:form id="DatosCarrito" >
+            <div class="col-sm-3 dientes">
+
+
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <!--<p:outputLabel class="form-control-label"  value="Cliente" for="buscarCliente" />-->
+                </div>
+                <div class="col-sm-9">
+                  <p:commandButton id="buscarCliente" icon="ui-icon-search"   
+                                   value="Buscar Paciente"
+                                   oncomplete="PF('PacienteSearchDialog').show()"/>
+                </div>
               </div>
-              <div class="col-xs-9 proforma">
 
-                <p:dataTable id="datalist" value="#{historia.enfermedades}" var="item">
-                  <p:column>
-                    <f:facet name="header">
-                      <h:outputText value="Cantidad"/>
-                    </f:facet>
-                    <h:outputText value=""/>
-                  </p:column>
-                  <p:column style="width: 400px;">
-                    <f:facet name="header">
-                      <h:outputText value="Descripción" />
-                    </f:facet>
-                    <h:outputText value="#{item.motivoConsulta}"/>
-                  </p:column>
-                  <p:column>
-                    <f:facet name="header">
-                      <h:outputText value="Costo unitario"/>
-                    </f:facet>
-                    <h:outputText value="#{item.tiempoEnfermedad}"/>
-                  </p:column>
-                  <p:column>
-                    <f:facet name="header">
-                      <h:outputText value="Total"/>
-                    </f:facet>
-                    <h:outputText value="#{item.signosSintomas}"/>
-                  </p:column>
-                  
-                </p:dataTable>
+              <h:panelGroup id="cliente" rendered="#{ventas.pacienteSelected!=null}">
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <p:outputLabel class="form-control-label"  value="Paciente" />
+                  </div>
+                  <div class="col-sm-9">
+                    <h:outputText value="#{ventas.pacienteSelected.nombre} #{ventas.pacienteSelected.apelllidos}"/>
+                  </div>
+                </div>
+              </h:panelGroup>
 
+
+
+
+
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <!--<p:outputLabel class="form-control-label" for="buscarServicio" value="Servicio:  " />-->
+                </div>
+                <div class="col-sm-9">
+                  <p:commandButton id="buscarServicio" icon="ui-icon-search"   
+                                   value="Buscar Servicio"
+                                   oncomplete="PF('ServicioSearchDialog').show()"/>
+                </div>
+              </div>
+
+
+
+              <h:panelGroup id="servivio" rendered="#{ventas.servicioSelected!=null}">
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <p:outputLabel class="form-control-label"  value="Servicio" />
+                  </div>
+                  <div class="col-sm-9">
+                    <h:outputText value="#{ventas.servicioSelected.nombre}"/>
+                  </div>
+                </div>
+              </h:panelGroup>
+
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <p:outputLabel class="form-control-label" for="diente" value="Diente: " />
+                </div>
+                <div class="col-sm-9">
+                  <p:inputText class="form-control" id="diente" value="#{ventas.servicioVenta.diente}" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-9">
+                  <p:commandButton value="Agregar" icon="ui-icon-plus" actionListener="#{ventas.agregarServicio()}" 
+                                   update="CarritoListForm:total,CarritoListForm:datalist,DatosCarrito:diente,:growl,cliente"
+                                   ajax="true"/>
+                </div>
+              </div>
+            </div>
+          </h:form>
+
+          <h:form id="CarritoListForm">
+            <div class="col-xs-9 proforma">
+
+              <p:dataTable id="datalist" value="#{ventas.carrito.items}" var="item">
+                <p:column>
+                  <f:facet name="header">
+                    <h:outputText value="Cantidad"/>
+                  </f:facet>
+                  <h:outputText value="#{item.cantidad}"/>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header">
+                    <h:outputText value="Servicio" />
+                  </f:facet>
+                  <h:outputText value="#{item.nombreServicio}"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">
+                    <h:outputText value="Diente" />
+                  </f:facet>
+                  <h:outputText value="#{item.diente}"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">
+                    <h:outputText value="Precio"/>
+                  </f:facet>
+                  <h:outputText value="#{item.precioServicio}"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">
+                    <h:outputText value="Importe"/>
+                  </f:facet>
+                  <h:outputText value="#{item.importe}"/>
+                </p:column>
+
+              </p:dataTable>
+
+
+
+              <h:panelGroup id="total">
                 <div class="row total">
                   <div class="col-lg-4">
                     <p:outputLabel  value="Total : " />
                     <div style="margin-bottom: 25px" class="input-group">
                       <span class="input-group-addon">S/.</span>
-                      <p:outputLabel value="0" class="form-control"/>
+                      <p:outputLabel value="#{ventas.carrito.total}" class="form-control"/>
                     </div>
                   </div>
                   <div class="col-lg-offset-8" />
                 </div>
+              </h:panelGroup>
 
-                <div class="row forma-pago">
-                  <div class="col-lg-6">
-                    <h3>Forma de pago</h3>
 
-                    <p:tabView dynamic="true" cache="true">
-                      <p:tab title="Contado">
-                        
-                        <p:commandButton value="Cancelar" />
-                        
-                      </p:tab>
-                      <p:tab title="Cuotas">
-                        
-                        <div class="form-group row">
-                          <div class="col-lg-3 form-control-label">
-                            <p:outputLabel  value="Inicial" />
-                          </div>
-                          <div class="col-lg-9">
-                            <div style="margin-bottom: 25px" class="input-group">
-                              <span class="input-group-addon">S/.</span>
-                              <p:inputText value="" class="form-control"/>
-                            </div>
-                          </div>
-                          <div class="col-lg-offset-8" />
-                        </div>
-                          
-                        <div class="form-group row">
-                          <p:outputLabel class="col-sm-3 form-control-label" value="Nº de cuotas" />
-                          <div class="col-sm-9">
-                            <input type="email" class="form-control" id="inputEmail3" />
-                          </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                          <p:outputLabel class="col-sm-3 form-control-label" for="tiempo" value="Tiempo" />
-                          <div class="col-sm-9">
-                            <p:selectOneRadio id="tiempo" value="">
-                              <f:selectItem itemLabel="Mensual"
-                                            itemValue="MENSUAL"/>
-                              <f:selectItem itemLabel="Quincenal"
-                                            itemValue="QUINCENAL"/>
-                            </p:selectOneRadio>
-                          </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                          <div class="col-lg-3 form-control-label">
-                            <p:outputLabel  value="Cuota a pagar" />
-                          </div>
-                          <div class="col-lg-9">
-                            <div style="margin-bottom: 25px" class="input-group">
-                              <span class="input-group-addon">S/.</span>
-                              <p:outputLabel value="0.00" class="form-control"/>
-                            </div>
-                          </div>
-                          <div class="col-lg-offset-8" />
-                        </div>
-                        
-                        <p:commandButton value="Guardar" />
-                        
-                        
-                      </p:tab>
-                    </p:tabView>
 
-                  </div>
-                  <div class="col-lg-offset-6" />
+
+
+
+
+
+
+              <div class="row forma-pago">
+                <div class="col-lg-6">
+                  <h3>Forma de pago</h3>
+
+                  <p:tabView id="tabs" dynamic="true" cache="true" >
+                    <p:tab title="Pago al Contado">
+
+                      <p:commandButton value="Guardar venta" actionListener="#{ventas.grabarVentaContado()}"
+                                       update=":growl"/>
+
+                    </p:tab>
+
+
+                    <p:tab title="Pago en Cuotas" id="pagoCuotas">
+
+                      <div class="form-group row">
+                        <div class="col-lg-3 form-control-label">
+                          <p:outputLabel  value="Inicial" for="inicial" />
+                        </div>
+                        <div class="col-lg-9">
+                          <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">S/.</span>
+                            <p:inputText id="inicial" value="#{ventas.cuota.inicial}" class="form-control" required="true" 
+                                         requiredMessage="#{bundle.CreateCuotaRequiredMessage_inicial}">
+                            <p:ajax event="keyup" listener="#{ventas.calcularImporte()}" update="importe" 
+                                    delay="500"
+                                    process="@this ncuotas"/>  
+                            </p:inputText>
+                          </div>
+                        </div>
+                        <div class="col-lg-offset-8" />
+                      </div>
+
+                      <div class="form-group row">
+                        <p:outputLabel class="col-sm-3 form-control-label" value="Nº de cuotas" for="ncuotas" />
+                        <div class="col-sm-9">
+                          <!-- validar solo numeros -->
+                          <p:inputText class="form-control" id="ncuotas" value="#{ventas.cuota.totalcuotas}" >
+                            <p:ajax event="keyup" listener="#{ventas.calcularImporte()}" update="importe" 
+                                    delay="500"
+                                    process="@this inicial"/>  
+                          </p:inputText>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-lg-3 form-control-label">
+                          <p:outputLabel  value="Cuota a pagar" />
+                        </div>
+                        <div class="col-lg-9">
+                          <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">S/.</span>
+                            <h:panelGroup>
+                              <p:outputLabel id="importe" value="#{ventas.cuota.importe}" class="form-control"/>
+                            </h:panelGroup>
+                          </div>
+                        </div>
+                        <div class="col-lg-offset-8" />
+                      </div>
+
+                      <div class="form-group row">
+                        <p:outputLabel class="col-sm-3 form-control-label" for="tiempo" value="Tiempo" />
+                        <div class="col-sm-9">
+                          <p:selectOneRadio id="tiempo" value="#{ventas.cuota.plazo}">
+                            <f:selectItem itemLabel="Mensual"
+                                          itemValue="MENSUAL"/>
+                            <f:selectItem itemLabel="Quincenal"
+                                          itemValue="QUINCENAL"/>
+                          </p:selectOneRadio>
+                        </div>
+                      </div>
+
+                      <p:commandButton value="Guardar venta" actionListener="#{ventas.grabarVentaCuotas()}"
+                                       update=":growl"/>
+
+                    </p:tab>
+
+
+
+                  </p:tabView>
+
                 </div>
-
-
-
+                <div class="col-lg-offset-6" />
               </div>
+
+
 
             </div>
           </h:form>
+
         </div>
+      </div>
 
-
-      </ui:define>
-    </ui:composition>
+      <ui:include src="ventaBuscarPaciente.xhtml"/>
+      <ui:include src="ventaBuscarServicio.xhtml"/>
+    </ui:define>
+  </ui:composition>
 </html>
 

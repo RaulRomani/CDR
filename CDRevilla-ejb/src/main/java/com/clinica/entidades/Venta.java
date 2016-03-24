@@ -62,12 +62,12 @@ public class Venta implements Serializable {
   private Date fecha;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 20)
   @Column(name = "formapago")
   private String formapago;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 20)
   @Column(name = "comprobante")
   private String comprobante;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "idVenta")

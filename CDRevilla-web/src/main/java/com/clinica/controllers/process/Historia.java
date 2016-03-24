@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.clinica.controllers;
+package com.clinica.controllers.process;
 
 import com.clinica.entidades.Enfermedad;
 import com.clinica.entidades.Personal;
@@ -45,7 +45,6 @@ public class Historia implements Serializable{
 
   private UploadedFile file;
 
-  Personal personal ;
   Enfermedad enfermedad ;
   List<Enfermedad> enfermedades ;
   Exploracionfisica exploracion ;
@@ -54,23 +53,17 @@ public class Historia implements Serializable{
   @PostConstruct
   void init(){
   
-     personal = new Personal();
     enfermedad = new Enfermedad();
      enfermedades = new ArrayList<>();
      exploracion = new Exploracionfisica();
      exploraciones = new ArrayList<>();
   }
   
+  public void grabarHistoriaClinica(){
+    
+  }
+
   
-
-  public Personal getPersonal() {
-    return personal;
-  }
-
-  public void setPersonal(Personal personal) {
-    this.personal = personal;
-  }
-
   public Enfermedad getEnfermedad() {
     return enfermedad;
   }

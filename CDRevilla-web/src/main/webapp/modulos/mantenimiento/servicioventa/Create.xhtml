@@ -22,6 +22,11 @@
                              var="servicioItem"
                              itemValue="#{servicioItem}"/>
             </p:selectOneMenu>
+            <p:outputLabel value="#{bundle.CreateServicioventaLabel_diente}" for="diente" />
+            <p:inputText id="diente" value="#{servicioventaController.selected.diente}" 
+                         title="#{bundle.CreateServicioventaTitle_importe}" 
+                         required="true" 
+                         requiredMessage="#{bundle.CreateServicioventaRequiredMessage_diente}"/>
             <p:outputLabel value="#{bundle.CreateServicioventaLabel_venta}" for="venta" />
             <p:selectOneMenu id="venta" value="#{servicioventaController.selected.venta}" required="true" requiredMessage="#{bundle.EditServicioventaRequiredMessage_venta}">
               <f:selectItems value="#{ventaController.itemsAvailableSelectOne}"

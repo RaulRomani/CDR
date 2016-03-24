@@ -60,12 +60,12 @@ public class Paciente implements Serializable {
   private Integer idPaciente;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 50)
   @Column(name = "Nombre")
   private String nombre;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 100)
   @Column(name = "Apelllidos")
   private String apelllidos;
   @Basic(optional = false)
@@ -75,12 +75,12 @@ public class Paciente implements Serializable {
   private String dni;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 100)
   @Column(name = "Direccion")
   private String direccion;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 100)
   @Column(name = "LugarNacimiento")
   private String lugarNacimiento;
   @Basic(optional = false)
@@ -110,22 +110,22 @@ public class Paciente implements Serializable {
   private String gradoInstruccion;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 100)
+  @Size(min = 1, max = 50)
   @Column(name = "Ocupaci\u00f3n")
   private String ocupación;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 50)
   @Column(name = "Religion")
   private String religion;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 50)
   @Column(name = "EstadoCivil")
   private String estadoCivil;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 1, max = 100)
   @Column(name = "Foto")
   private String foto;
   @Basic(optional = false)

@@ -41,12 +41,12 @@
         </plugins>
     </build>
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>com.clinica</groupId>
             <artifactId>CDRevilla-ejb</artifactId>
             <version>1.0</version>
             <type>ejb</type>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>com.clinica</groupId>
             <artifactId>CDRevilla-web</artifactId>

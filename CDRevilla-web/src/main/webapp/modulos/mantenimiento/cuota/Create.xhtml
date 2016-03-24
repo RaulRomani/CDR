@@ -22,6 +22,11 @@
             <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{cuotaController.selected.fecha}" title="#{bundle.EditCuotaTitle_fecha}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_fecha}" showOn="button"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_plazo}" for="plazo" />
             <p:inputText id="plazo" value="#{cuotaController.selected.plazo}" title="#{bundle.CreateCuotaTitle_plazo}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_plazo}"/>
+            <p:outputLabel value="#{bundle.CreateCuotaLabel_inicial}" for="inicial" />
+            <p:inputText id="inicial" value="#{cuotaController.selected.inicial}" 
+                         title="#{bundle.CreateCuotaTitle_inicial}" 
+                         required="true" 
+                         requiredMessage="#{bundle.CreateCuotaRequiredMessage_inicial}"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_importe}" for="importe" />
             <p:inputText id="importe" value="#{cuotaController.selected.importe}" title="#{bundle.CreateCuotaTitle_importe}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_importe}"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_idVenta}" for="idVenta" />

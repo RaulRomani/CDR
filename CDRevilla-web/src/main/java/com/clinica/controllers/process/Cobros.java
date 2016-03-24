@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.clinica.controllers;
+package com.clinica.controllers.process;
 
 import com.clinica.entidades.Paciente;
 import java.io.Serializable;

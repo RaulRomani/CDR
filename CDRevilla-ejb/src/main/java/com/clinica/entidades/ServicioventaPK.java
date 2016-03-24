@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class ServicioventaPK implements Serializable {
   @Basic(optional = false)
-  @NotNull
   @Column(name = "IdVenta")
   private int idVenta;
   @Basic(optional = false)

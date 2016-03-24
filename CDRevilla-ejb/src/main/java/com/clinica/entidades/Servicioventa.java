@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
   @NamedQuery(name = "Servicioventa.findByIdVenta", query = "SELECT s FROM Servicioventa s WHERE s.servicioventaPK.idVenta = :idVenta"),
   @NamedQuery(name = "Servicioventa.findByIdServicio", query = "SELECT s FROM Servicioventa s WHERE s.servicioventaPK.idServicio = :idServicio"),
   @NamedQuery(name = "Servicioventa.findByCantidad", query = "SELECT s FROM Servicioventa s WHERE s.cantidad = :cantidad"),
+  @NamedQuery(name = "Servicioventa.findByDiente", query = "SELECT s FROM Servicioventa s WHERE s.diente = :diente"),
   @NamedQuery(name = "Servicioventa.findByImporte", query = "SELECT s FROM Servicioventa s WHERE s.importe = :importe")})
 public class Servicioventa implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -45,6 +47,13 @@ public class Servicioventa implements Serializable {
   @NotNull
   @Column(name = "importe")
   private BigDecimal importe;
+  
+  @Basic(optional = false)
+  @NotNull
+  @Size(min = 0, max = 100)
+  @Column(name = "diente")
+  private String diente;
+  
   @JoinColumn(name = "idServicio", referencedColumnName = "idServicio", insertable = false, updatable = false)
   @ManyToOne(optional = false)
   private Servicio servicio;
@@ -91,6 +100,14 @@ public class Servicioventa implements Serializable {
 
   public void setImporte(BigDecimal importe) {
     this.importe = importe;
+  }
+
+  public String getDiente() {
+    return diente;
+  }
+
+  public void setDiente(String diente) {
+    this.diente = diente;
   }
 
   public Servicio getServicio() {

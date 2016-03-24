@@ -5,7 +5,11 @@
  */
 package com.clinica.fachadas;
 
+import com.clinica.entidades.Cuota;
+import com.clinica.entidades.Paciente;
+import com.clinica.entidades.Personal;
 import com.clinica.entidades.Venta;
+import com.clinica.entidades.util.Carrito;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +33,9 @@ public interface VentaFacadeLocal {
   List<Venta> findRange(int[] range);
 
   int count();
+  
+  void grabarVentaContado(Carrito carrito,Paciente paciente,Personal personal);
+  
+  void grabarVentaCuotas(Carrito carrito,Paciente paciente,Personal personal,Cuota cuota);
   
 }
