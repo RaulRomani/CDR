@@ -15,7 +15,6 @@
 
     <ui:define name="body">
       <h:form id="HistoriaclinicaListForm">
-        <p:panel header="#{bundle.ListHistoriaclinicaTitle}">
           <p:dataTable id="datalist" value="#{historiaclinicaController.items}" var="item"
                        selectionMode="single" selection="#{historiaclinicaController.selected}"
                        paginator="true"
@@ -114,7 +113,6 @@
               <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{historiaclinicaController.destroy}" update=":growl,datalist" disabled="#{empty historiaclinicaController.selected}"/>
             </f:facet>
           </p:dataTable>
-        </p:panel>
       </h:form>
 
       <ui:include src="Create.xhtml"/>

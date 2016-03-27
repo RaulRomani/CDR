@@ -11,15 +11,33 @@
 .main-content {
   padding-bottom: 50px;
 }
-.add-enfermedad {
-}
 
+
+
+
+
+
+/********* PRIMEFACES CSS ******/
+
+.ui-datepicker-trigger {
+display: inline-block !important;
+}
 .ui-selectonemenu .ui-selectonemenu-trigger {
   padding: 0px;
 }
 
-
-
+.btn:focus {
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+.ui-selectonemenu{
+  outline: none;
+}
+.ui-selectonemenu-trigger{
+  outline: none;
+}
 .ui-selectonemenu{
   padding: 0px;
 }
@@ -32,3 +50,8 @@
 margin-left: 4px;
 margin-right: 10px;
 }
+.ui-selectonemenu .ui-selectonemenu-trigger {
+  padding: 0px;
+}
+
+

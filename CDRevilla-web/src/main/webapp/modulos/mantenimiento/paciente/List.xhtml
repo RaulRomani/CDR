@@ -13,126 +13,151 @@
       <h:outputText value="#{bundle.ListPacienteTitle}"></h:outputText>
     </ui:define>
 
+    <ui:define name="resources">
+      <h:outputScript name="/js/scripts.js"/>
+    </ui:define>
+
+
     <ui:define name="body">
       <h:form id="PacienteListForm">
-        <p:panel header="#{bundle.ListPacienteTitle}">
-          <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
-                       selectionMode="single" selection="#{pacienteController.selected}"
-                       paginator="true"
-                       rowKey="#{item.idPaciente}"
-                       rows="10"
-                       rowsPerPageTemplate="10,20,30,40,50"
-                       >
 
-            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+        <h:graphicImage url="/resources/fotos/foto.jpg" alt="Foto" class="MostrarImagen" height="150px" width="200px" />
 
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_idPaciente}"/>
-              </f:facet>
-              <h:outputText value="#{item.idPaciente}"/>
-            </p:column>
-            <p:column filterBy="#{item.nombre}" filterMatchMode="contains">
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_nombre}"/>
-              </f:facet>
-              <h:outputText value="#{item.nombre}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_apelllidos}"/>
-              </f:facet>
-              <h:outputText value="#{item.apelllidos}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_dni}"/>
-              </f:facet>
-              <h:outputText value="#{item.dni}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_direccion}"/>
-              </f:facet>
-              <h:outputText value="#{item.direccion}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_lugarNacimiento}"/>
-              </f:facet>
-              <h:outputText value="#{item.lugarNacimiento}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_celular}"/>
-              </f:facet>
-              <h:outputText value="#{item.celular}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_sexo}"/>
-              </f:facet>
-              <h:outputText value="#{item.sexo}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_edad}"/>
-              </f:facet>
-              <h:outputText value="#{item.edad}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_raza}"/>
-              </f:facet>
-              <h:outputText value="#{item.raza}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_gradoInstruccion}"/>
-              </f:facet>
-              <h:outputText value="#{item.gradoInstruccion}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_ocupación}"/>
-              </f:facet>
-              <h:outputText value="#{item.ocupación}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_religion}"/>
-              </f:facet>
-              <h:outputText value="#{item.religion}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_estadoCivil}"/>
-              </f:facet>
-              <h:outputText value="#{item.estadoCivil}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_foto}"/>
-              </f:facet>
-              <h:outputText value="#{item.foto}"/>
-            </p:column>
-            <p:column>
-              <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_fechaApertura}"/>
-              </f:facet>
-              <h:outputText value="#{item.fechaApertura}">
-                <f:convertDateTime pattern="MM/dd/yyyy" />
-              </h:outputText>
-            </p:column>
-            <f:facet name="footer">
-              <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pacienteController.prepareCreate}" update=":PacienteCreateForm" oncomplete="PF('PacienteCreateDialog').show()"/>
-              <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PacienteViewForm" oncomplete="PF('PacienteViewDialog').show()" disabled="#{empty pacienteController.selected}"/>
-              <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PacienteEditForm" oncomplete="PF('PacienteEditDialog').show()" disabled="#{empty pacienteController.selected}"/>
-              <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pacienteController.destroy}" update=":growl,datalist" disabled="#{empty pacienteController.selected}"/>
+        <p:fileUpload id="CargarImagen"
+                      oncomplete="alert('oncomplete');"
+                      value="#{historiaclinicaController.file}" 
+                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                      mode="simple" skinSimple="true"
+                      label="Elegir">
+        </p:fileUpload>
+
+        <p:graphicImage id="showImage" value="#{pacienteController.image}" alt="Foto" class="MostrarImagen"  height="150px" width="200px"/>
+        <p:fileUpload id="imgTmp"
+                      auto="true"
+                      update="showImage"
+                      fileUploadListener="#{pacienteController.handleFileUpload}"
+                      value="#{pacienteController.file}" 
+                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                      mode="simple" skinSimple="true"
+                      label="Elegir">
+        </p:fileUpload>
+
+        <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
+                     selectionMode="single" selection="#{pacienteController.selected}"
+                     paginator="true"
+                     rowKey="#{item.idPaciente}"
+                     rows="10"
+                     rowsPerPageTemplate="10,20,30,40,50"
+                     >
+
+          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+          <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_idPaciente}"/>
             </f:facet>
-          </p:dataTable>
-        </p:panel>
+            <h:outputText value="#{item.idPaciente}"/>
+          </p:column>
+          <p:column filterBy="#{item.nombre}" filterMatchMode="contains">
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_nombre}"/>
+            </f:facet>
+            <h:outputText value="#{item.nombre}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_apelllidos}"/>
+            </f:facet>
+            <h:outputText value="#{item.apelllidos}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_dni}"/>
+            </f:facet>
+            <h:outputText value="#{item.dni}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_direccion}"/>
+            </f:facet>
+            <h:outputText value="#{item.direccion}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_lugarNacimiento}"/>
+            </f:facet>
+            <h:outputText value="#{item.lugarNacimiento}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_celular}"/>
+            </f:facet>
+            <h:outputText value="#{item.celular}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_sexo}"/>
+            </f:facet>
+            <h:outputText value="#{item.sexo}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_edad}"/>
+            </f:facet>
+            <h:outputText value="#{item.edad}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_raza}"/>
+            </f:facet>
+            <h:outputText value="#{item.raza}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_gradoInstruccion}"/>
+            </f:facet>
+            <h:outputText value="#{item.gradoInstruccion}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_ocupación}"/>
+            </f:facet>
+            <h:outputText value="#{item.ocupación}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_religion}"/>
+            </f:facet>
+            <h:outputText value="#{item.religion}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_estadoCivil}"/>
+            </f:facet>
+            <h:outputText value="#{item.estadoCivil}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_foto}"/>
+            </f:facet>
+            <h:outputText value="#{item.foto}"/>
+          </p:column>
+          <p:column>
+            <f:facet name="header">
+              <h:outputText value="#{bundle.ListPacienteTitle_fechaApertura}"/>
+            </f:facet>
+            <h:outputText value="#{item.fechaApertura}">
+              <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+          </p:column>
+          <f:facet name="footer">
+            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pacienteController.prepareCreate}" update=":PacienteCreateForm" oncomplete="PF('PacienteCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PacienteViewForm" oncomplete="PF('PacienteViewDialog').show()" disabled="#{empty pacienteController.selected}"/>
+            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PacienteEditForm" oncomplete="PF('PacienteEditDialog').show()" disabled="#{empty pacienteController.selected}"/>
+            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pacienteController.destroy}" update=":growl,datalist" disabled="#{empty pacienteController.selected}"/>
+          </f:facet>
+        </p:dataTable>
       </h:form>
 
       <ui:include src="Create.xhtml"/>

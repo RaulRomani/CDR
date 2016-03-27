@@ -47,7 +47,7 @@
               <f:convertDateTime pattern="MM/dd/yyyy" />
             </h:outputText>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="PacienteViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PacienteViewDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

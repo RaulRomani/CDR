@@ -44,7 +44,7 @@
             </p:selectOneMenu>
           </p:panelGrid>
           <p:commandButton actionListener="#{historiaclinicaController.create}" value="#{bundle.Save}" update="display,:HistoriaclinicaListForm:datalist,:growl" oncomplete="handleSubmit(args,'HistoriaclinicaCreateDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="HistoriaclinicaCreateDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('HistoriaclinicaCreateDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

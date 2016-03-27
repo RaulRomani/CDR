@@ -6,7 +6,7 @@
   <module>
       <web>
           <web-uri>CDRevilla-web-1.0.war</web-uri>
-          <context-root>app</context-root>
+          <context-root>/app</context-root>
       </web>
   </module>
 </glassfish-application>

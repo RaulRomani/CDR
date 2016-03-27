@@ -46,7 +46,7 @@
             <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{pacienteController.selected.fechaApertura}" title="#{bundle.EditPacienteTitle_fechaApertura}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_fechaApertura}" showOn="button"/>
           </p:panelGrid>
           <p:commandButton actionListener="#{pacienteController.update}" value="#{bundle.Save}" update="display,:PacienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PacienteEditDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="PacienteEditDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PacienteEditDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

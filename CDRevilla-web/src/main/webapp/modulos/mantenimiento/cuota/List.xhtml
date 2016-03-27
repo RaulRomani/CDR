@@ -15,7 +15,6 @@
 
     <ui:define name="body">
       <h:form id="CuotaListForm">
-        <p:panel header="#{bundle.ListCuotaTitle}">
           <p:dataTable id="datalist" value="#{cuotaController.items}" var="item"
                        selectionMode="single" selection="#{cuotaController.selected}"
                        paginator="true"
@@ -84,7 +83,6 @@
               <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cuotaController.destroy}" update=":growl,datalist" disabled="#{empty cuotaController.selected}"/>
             </f:facet>
           </p:dataTable>
-        </p:panel>
       </h:form>
 
       <ui:include src="Create.xhtml"/>

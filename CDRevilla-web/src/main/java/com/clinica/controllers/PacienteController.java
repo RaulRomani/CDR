@@ -3,36 +3,62 @@ package com.clinica.controllers;
 import com.clinica.entidades.Paciente;
 import com.clinica.controllers.util.JsfUtil;
 import com.clinica.controllers.util.JsfUtil.PersistAction;
+import com.clinica.controllers.util.Log4jConfig;
 import com.clinica.fachadas.PacienteFacadeLocal;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 @Named("pacienteController")
-@SessionScoped
+@ViewScoped
 public class PacienteController implements Serializable {
+
+  private static final long serialVersionUID = -2564031884483676327L;
 
   @EJB
   private com.clinica.fachadas.PacienteFacadeLocal ejbFacade;
   private List<Paciente> items = null;
   private Paciente selected;
+  private UploadedFile file;
+  private StreamedContent image;
+  final static org.apache.log4j.Logger logger = Log4jConfig.getLogger(PacienteController.class.getName());
 
   public PacienteController() {
   }
 
   public Paciente getSelected() {
     return selected;
+  }
+
+  @PostConstruct
+  void init() {
+
   }
 
   public void setSelected(Paciente selected) {
@@ -56,6 +82,8 @@ public class PacienteController implements Serializable {
   }
 
   public void create() {
+
+    uploadFoto();
     persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PacienteCreated"));
     if (!JsfUtil.isValidationFailed()) {
       items = null;    // Invalidate list of items to trigger re-query.
@@ -107,6 +135,67 @@ public class PacienteController implements Serializable {
         JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
       }
     }
+  }
+
+  public void uploadFoto() {
+
+    try {
+
+      String fileName = file.getFileName();
+
+      StreamedContent listImage = new DefaultStreamedContent(new ByteArrayInputStream(file.getContents()), "image/png");
+//      file.get
+      InputStream in = file.getInputstream();
+      String destination = "D:\\tmp\\";
+
+      // write the inputStream to a FileOutputStream
+      OutputStream out = new FileOutputStream(new File(destination + fileName));
+
+      selected.setFoto(destination + selected.getDni());
+
+      int read = 0;
+      byte[] bytes = new byte[1024];
+
+      while ((read = in.read(bytes)) != -1) {
+        out.write(bytes, 0, read);
+      }
+
+      in.close();
+      out.flush();
+      out.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public StreamedContent getImage() {
+    if (image == null) {
+      try {
+        String imageDefaulf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/fotos/foto.jpg");
+        image = new DefaultStreamedContent(new FileInputStream(imageDefaulf), "image/png"); // load a dummy image
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+    logger.info("IMAGEN CARGADA OK");
+    return image;
+  }
+
+  public void handleFileUpload(FileUploadEvent event) {
+    final UploadedFile uploadedFile = event.getFile();
+
+    image = new DefaultStreamedContent(new ByteArrayInputStream(uploadedFile.getContents()), "image/png");
+
+    logger.info("Upload file OK:");
+  }
+
+  public UploadedFile getFile() {
+    return file;
+  }
+
+  public void setFile(UploadedFile file) {
+    this.file = file;
   }
 
   public Paciente getPaciente(java.lang.Integer id) {

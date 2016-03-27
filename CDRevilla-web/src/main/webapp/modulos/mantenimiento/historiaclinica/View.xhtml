@@ -41,7 +41,7 @@
             <h:outputText value="#{bundle.ViewHistoriaclinicaLabel_idPaciente}"/>
             <h:outputText value="#{historiaclinicaController.selected.idPaciente}" title="#{bundle.ViewHistoriaclinicaTitle_idPaciente}"/>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="HistoriaclinicaViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('HistoriaclinicaViewDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>
