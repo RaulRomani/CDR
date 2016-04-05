@@ -14,17 +14,11 @@ $(document).ready(function () {
       reader.readAsDataURL(input.files[0]);
     }
   }
-  $("#PacienteCreateForm\\:imgTmp_input").change(function () {
-    readURL(this);
-  });
-  $("#PacienteListForm\\:CargarImagen_input").change(function () {
+  
+  $("#PacienteCreateEditForm\\:CargarImagen_input").change(function () {
     readURL(this);
   });
   
-  $("#PacienteListForm\\:CargarImagen_input").change(function () {
-    readURL(this);
-  });
-
   function readPicture(input)
   {
     if (input.files && input.files[0])
@@ -41,9 +35,9 @@ $(document).ready(function () {
     reader.readAsDataURL(input.files[0]);
   }
   
-  $("#PacienteCreateForm\\:CargarImagen_input").change(function () {
-    readPicture(this);
-  });
+//  $("#PacienteCreateForm\\:CargarImagen_input").change(function () {
+//    readPicture(this);
+//  });
   
 //  $("input:regex(id, .*CargarImagen_input.*)").css('background-color','yellow');
   

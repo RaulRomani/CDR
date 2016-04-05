@@ -44,7 +44,7 @@ public class PersonalController implements Serializable {
 
   protected void initializeEmbeddableKey() {
   }
-
+  
   private PersonalFacadeLocal getFacade() {
     return ejbFacade;
   }

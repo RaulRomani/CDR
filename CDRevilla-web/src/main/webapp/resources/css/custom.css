@@ -12,13 +12,31 @@
   padding-bottom: 50px;
 }
 
+.MostrarImagen{
+  background-color: #CCCCCC;
+}
 
+.action-btn{
+  color: white !important;
+}
 
+/*
 
+.pacienteList td:nth-child(10) {
+    width: 160px;
+}
 
+.pacienteList th:nth-child(10) {
+    width: 160px;
+}
 
+*/
 /********* PRIMEFACES CSS ******/
 
+.ui-widget-header{
+  border: none;
+  background: none;
+}
 .ui-datepicker-trigger {
 display: inline-block !important;
 }

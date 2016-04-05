@@ -28,4 +28,10 @@ public class PacienteFacade extends AbstractFacade<Paciente> implements Paciente
     super(Paciente.class);
   }
   
+  @Override
+  public Integer persist(Paciente paciente) {
+    em.persist(paciente);
+    em.flush();
+    return paciente.getIdPaciente();
+  }
 }

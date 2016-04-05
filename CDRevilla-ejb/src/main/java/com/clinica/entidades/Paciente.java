@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -71,7 +72,7 @@ public class Paciente implements Serializable {
   @Basic(optional = false)
   @NotNull
   @Size(min = 1, max = 8)
-  @Column(name = "DNI")
+  @Column(unique = true, name = "DNI")
   private String dni;
   @Basic(optional = false)
   @NotNull
@@ -79,57 +80,49 @@ public class Paciente implements Serializable {
   @Column(name = "Direccion")
   private String direccion;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 100)
+  @Size(min = 0, max = 100)
   @Column(name = "LugarNacimiento")
   private String lugarNacimiento;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 20)
+  @Size(min = 0, max = 20)
   @Column(name = "Celular")
   private String celular;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 10)
+  @Size(min = 0, max = 10)
   @Column(name = "Sexo")
   private String sexo;
   @Basic(optional = false)
   @NotNull
-  @Size(min = 1, max = 3)
+  @Size(min = 0, max = 3)
   @Column(name = "Edad")
   private String edad;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 0, max = 200)
   @Column(name = "Raza")
   private String raza;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 200)
+  @Size(min = 0, max = 200)
   @Column(name = "GradoInstruccion")
   private String gradoInstruccion;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 50)
+  @Size(min = 0, max = 50)
   @Column(name = "Ocupaci\u00f3n")
   private String ocupación;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 50)
+  @Size(min = 0, max = 50)
   @Column(name = "Religion")
   private String religion;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 50)
+  @Size(min = 0, max = 50)
   @Column(name = "EstadoCivil")
   private String estadoCivil;
   @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 100)
+  @Size(min = 0, max = 100)
   @Column(name = "Foto")
   private String foto;
   @Basic(optional = false)
-  @NotNull
   @Column(name = "FechaApertura")
   @Temporal(TemporalType.DATE)
   private Date fechaApertura;

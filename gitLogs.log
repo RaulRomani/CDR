@@ -1,0 +1,23 @@
+commit 9b3ef3a5e3125a62bd90c53f86b0860be0d348bc
+Author: Raúl <romanidev@gmail.com>
+Date:   Sun Mar 27 13:00:07 2016 -0500
+
+    Error Cargar imagen dinamica con Managed Bean
+    
+    Para continuar otro día
+
+commit 01b419726496306612afba1d772f8244eaa1dda6
+Author: Raúl <romanidev@gmail.com>
+Date:   Thu Mar 24 06:55:42 2016 -0500
+
+    Menú de ventas terminado
+    
+    Ventas al contado y en cuotas, EJB=Bussiness layer
+
+commit 25a8a7e5dbfef8098a65bd81f361fd931022aa0f
+Author: Raúl <romanidev@gmail.com>
+Date:   Tue Mar 15 16:57:36 2016 -0500
+
+    Diseño de interfaces
+    
+    Diseño con bootstrap 3

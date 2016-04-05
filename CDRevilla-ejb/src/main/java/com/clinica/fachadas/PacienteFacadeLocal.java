@@ -17,6 +17,8 @@ import javax.ejb.Local;
 public interface PacienteFacadeLocal {
 
   void create(Paciente paciente);
+  
+  public Integer persist(Paciente paciente) ;
 
   void edit(Paciente paciente);
 

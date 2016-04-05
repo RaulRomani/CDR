@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,17 +28,22 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @Named("pacienteController")
-@ViewScoped
+@SessionScoped
 public class PacienteController implements Serializable {
 
   private static final long serialVersionUID = -2564031884483676327L;
@@ -47,6 +54,8 @@ public class PacienteController implements Serializable {
   private Paciente selected;
   private UploadedFile file;
   private StreamedContent image;
+  private String pathImage;
+  private String contentType;
   final static org.apache.log4j.Logger logger = Log4jConfig.getLogger(PacienteController.class.getName());
 
   public PacienteController() {
@@ -58,6 +67,14 @@ public class PacienteController implements Serializable {
 
   @PostConstruct
   void init() {
+    prepareCreate();
+    String projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage().toString();
+    if(projectStage.equals("Production")){
+      pathImage = ResourceBundle.getBundle("/deploy").getString("productionPicturesPath");
+    } else if (projectStage.equals("Development")){
+      pathImage = ResourceBundle.getBundle("/deploy").getString("developmentPicturesPath");
+    }
+    logger.info("Project stage : " + projectStage);
 
   }
 
@@ -77,21 +94,60 @@ public class PacienteController implements Serializable {
 
   public Paciente prepareCreate() {
     selected = new Paciente();
+    selected.setLugarNacimiento("");
+    selected.setRaza("");
+    selected.setGradoInstruccion("");
+    selected.setGradoInstruccion("");
+    selected.setRaza("");
+    selected.setOcupación("");
+    selected.setReligion("");
+    selected.setEstadoCivil("");
+    selected.setFoto("");
     initializeEmbeddableKey();
     return selected;
   }
 
-  public void create() {
+  public void create() throws FileNotFoundException {
 
-    uploadFoto();
-    persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PacienteCreated"));
-    if (!JsfUtil.isValidationFailed()) {
-      items = null;    // Invalidate list of items to trigger re-query.
+    if (selected.getIdPaciente() == null) {//grabar
+      selected.setFechaApertura(new Date());
+      persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PacienteCreated"));
+      if(file != null){ //no se guarda la foto
+        uploadFoto();
+        logger.info("Save file = null");
+      }
+      if (!JsfUtil.isValidationFailed()) {
+        items = null;    // Invalidate list of items to trigger re-query.
+      }
+      RequestContext.getCurrentInstance().reset("PacienteCreateEditForm:PacienteFields");
+      //CLEAN
+      selected = new Paciente();
+      image = new DefaultStreamedContent(null);
+      file = null;
+    } else { //Editar
+      if(file != null){
+        uploadFoto();
+        logger.info("Update file = null");
+      }
+      update();
+      //load photo
+      FileInputStream stream = new FileInputStream(pathImage + selected.getIdPaciente() + ".jpg");
+      image = new DefaultStreamedContent(stream, "image/jpg");
+      logger.info("Upload photo OK");
+      
     }
   }
 
   public void update() {
     persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PacienteUpdated"));
+  }
+
+  public void destroy(Integer idPaciente) throws FileNotFoundException {
+    destroy();
+    prepareCreate();
+    image = new DefaultStreamedContent(null);
+    file = null;
+    RequestContext.getCurrentInstance().reset("PacienteCreateEditForm:PacienteFields");
   }
 
   public void destroy() {
@@ -103,9 +159,9 @@ public class PacienteController implements Serializable {
   }
 
   public List<Paciente> getItems() {
-    if (items == null) {
-      items = getFacade().findAll();
-    }
+//    if (items == null) {
+    items = getFacade().findAll();
+//    }
     return items;
   }
 
@@ -113,9 +169,12 @@ public class PacienteController implements Serializable {
     if (selected != null) {
       setEmbeddableKeys();
       try {
-        if (persistAction != PersistAction.DELETE) {
+        if (persistAction == PersistAction.UPDATE) {
           getFacade().edit(selected);
-        } else {
+        } else if(persistAction == PersistAction.CREATE){
+          Integer id = getFacade().persist(selected);
+          selected.setIdPaciente(id);
+        }else {
           getFacade().remove(selected);
         }
         JsfUtil.addSuccessMessage(successMessage);
@@ -137,21 +196,49 @@ public class PacienteController implements Serializable {
     }
   }
 
+  public void loadPacienteSelected(Integer idPaciente) throws FileNotFoundException {
+    selected = ejbFacade.find(idPaciente);
+//    file = FileInputStream(new File("/path/to/images", filename));
+    logger.info("Error stream");
+    FileInputStream stream = new FileInputStream(pathImage + selected.getIdPaciente() + ".jpg");
+    logger.info("Error load image");
+    image = new DefaultStreamedContent(stream, "image/jpg");
+  }
+
+  public void loadImage() throws IOException {
+//    image = new DefaultStreamedContent(new ByteArrayInputStream(file.getContents()), "image/jpg");
+//    image = null;
+//    image = new DefaultStreamedContent(file.getInputstream(), "image/jpg");
+    
+//    image = new DefaultStreamedContent(photo.getInputStream(), "image/jpg");
+    
+    logger.info("Exito load image!");
+  }
+
+  public void clean() throws IOException {
+    RequestContext.getCurrentInstance().reset("PacienteCreateEditForm:PacienteFields");
+    prepareCreate();
+    image = new DefaultStreamedContent(null);
+    file = null;
+    logger.info("Clean OK");
+    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+    ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+  }
+
   public void uploadFoto() {
 
     try {
 
-      String fileName = file.getFileName();
-
-      StreamedContent listImage = new DefaultStreamedContent(new ByteArrayInputStream(file.getContents()), "image/png");
+//      String fileName = file.getFileName();
+      String fileName = selected.getIdPaciente() + ".jpg";
+      if(selected.getIdPaciente()==null) //Si se va a crear
+        image = new DefaultStreamedContent(new ByteArrayInputStream(file.getContents()), "image/png");
 //      file.get
       InputStream in = file.getInputstream();
-      String destination = "D:\\tmp\\";
+      String destination = pathImage;
 
       // write the inputStream to a FileOutputStream
       OutputStream out = new FileOutputStream(new File(destination + fileName));
-
-      selected.setFoto(destination + selected.getDni());
 
       int read = 0;
       byte[] bytes = new byte[1024];
@@ -169,26 +256,7 @@ public class PacienteController implements Serializable {
     }
   }
 
-  public StreamedContent getImage() {
-    if (image == null) {
-      try {
-        String imageDefaulf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/fotos/foto.jpg");
-        image = new DefaultStreamedContent(new FileInputStream(imageDefaulf), "image/png"); // load a dummy image
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-    }
-    logger.info("IMAGEN CARGADA OK");
-    return image;
-  }
-
-  public void handleFileUpload(FileUploadEvent event) {
-    final UploadedFile uploadedFile = event.getFile();
-
-    image = new DefaultStreamedContent(new ByteArrayInputStream(uploadedFile.getContents()), "image/png");
-
-    logger.info("Upload file OK:");
-  }
+  
 
   public UploadedFile getFile() {
     return file;
@@ -196,6 +264,14 @@ public class PacienteController implements Serializable {
 
   public void setFile(UploadedFile file) {
     this.file = file;
+  }
+
+  public StreamedContent getImage() {
+    return image;
+  }
+
+  public void setImage(StreamedContent image) {
+    this.image = image;
   }
 
   public Paciente getPaciente(java.lang.Integer id) {
