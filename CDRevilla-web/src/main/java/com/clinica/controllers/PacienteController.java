@@ -266,7 +266,11 @@ public class PacienteController implements Serializable {
     this.file = file;
   }
 
-  public StreamedContent getImage() {
+  public StreamedContent getImage() throws FileNotFoundException {
+    if(selected.getIdPaciente() != null){
+      FileInputStream stream = new FileInputStream(pathImage + selected.getIdPaciente() + ".jpg");
+      image = new DefaultStreamedContent(stream, "image/jpg");
+  }
     return image;
   }
 

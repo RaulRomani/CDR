@@ -59,14 +59,6 @@
       <version>1.0.10</version>  
     </dependency> 
         
-    <!-- Bootsfaces primefaces  --> 
-    <dependency>
-      <groupId>net.bootsfaces</groupId>
-      <artifactId>bootsfaces</artifactId>
-      <version>0.8.0</version>
-      <scope>compile</scope>
-    </dependency>
-        
     <!-- Logger -->
     <dependency>
       <groupId>log4j</groupId>

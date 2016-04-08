@@ -6,9 +6,12 @@
 package com.clinica.fachadas;
 
 import com.clinica.entidades.Historiaclinica;
+import com.clinica.entidades.Paciente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +31,17 @@ public class HistoriaclinicaFacade extends AbstractFacade<Historiaclinica> imple
     super(Historiaclinica.class);
   }
   
+  @Override
+  public Historiaclinica findByPaciente(Paciente paciente) {
+    Historiaclinica historia;
+
+    try {
+      Query q = getEntityManager().createNamedQuery("Historiaclinica.findByPaciente");
+      q.setParameter("idPaciente", paciente);
+      historia = (Historiaclinica) q.getSingleResult();
+    } catch (NoResultException e) {
+      historia = null;
+    }
+    return historia;
+  }
 }

@@ -1,3 +1,11 @@
+commit e2fedc78da554a78870c3233c62333ef52c8b81a
+Author: Raúl <romanidev@gmail.com>
+Date:   Tue Apr 5 11:49:02 2016 -0500
+
+    Exito cargar imagen dinamica con ManagedBean y primefaces
+    
+    Interfaz CRUD Paciente terminado
+
 commit 9b3ef3a5e3125a62bd90c53f86b0860be0d348bc
 Author: Raúl <romanidev@gmail.com>
 Date:   Sun Mar 27 13:00:07 2016 -0500

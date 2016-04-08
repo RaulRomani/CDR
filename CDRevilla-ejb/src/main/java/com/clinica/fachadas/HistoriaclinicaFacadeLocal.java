@@ -6,6 +6,7 @@
 package com.clinica.fachadas;
 
 import com.clinica.entidades.Historiaclinica;
+import com.clinica.entidades.Paciente;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -23,6 +24,8 @@ public interface HistoriaclinicaFacadeLocal {
   void remove(Historiaclinica historiaclinica);
 
   Historiaclinica find(Object id);
+  
+  public Historiaclinica findByPaciente(Paciente paciente);
 
   List<Historiaclinica> findAll();
 

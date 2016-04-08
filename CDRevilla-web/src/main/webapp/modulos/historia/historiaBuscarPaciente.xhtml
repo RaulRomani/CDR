@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <!--
+    lazy="true"
+                       paginator="true"
+                       paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                       rows="10"
+                       rowsPerPageTemplate="10,20,30,40,50"-->
+    <p:dialog id="PacienteSearchDlg" widgetVar="PacienteSearchDialog" modal="true" resizable="false" appendTo="@(body)" header="Buscar paciente">
+      <h:form id="PacienteSearchForm" onkeypress="if (event.keyCode == 13) { return false; }" >
+        <h:panelGroup id="display">
+          <p:dataTable id="datalist" 
+                       value="#{historia.pacientes}" 
+                       var="item"
+                       rowKey="#{item.idPaciente}"
+                       selectionMode="single" 
+                       selection="#{historia.pacienteSelected}"
+                       emptyMessage="No cars found with given criteria"
+                       widgetVar="pacientesTable"
+                       style="width: 700px"
+                       paginator="true"
+                       rows="10"
+                       rowsPerPageTemplate="10,20,30,40,50,60,70,80,90,100"
+                       
+                       >
+            
+            <f:facet name="header">
+              <p:outputPanel>
+                <h:outputText value="Buscar por todos los campos:" />
+                <p:inputText id="globalFilter" onkeyup=" PF('pacientesTable').filter(); " style="width:150px" placeholder="Palabra clave" />
+              </p:outputPanel>
+            </f:facet>
+
+            <p:column headerText="#{bundle.ListPacienteTitle_nombre}" filterBy="#{item.nombre}" sortBy="#{item.nombre}" filterMatchMode="contains">
+              ${item.nombre}
+            </p:column>
+            <p:column headerText="#{bundle.ListPacienteTitle_apelllidos}" filterBy="#{item.apelllidos}" sortBy="#{item.apelllidos}" filterMatchMode="contains">
+              <h:outputText value="#{item.apelllidos}"/>
+            </p:column>
+            <p:column headerText="#{bundle.ListPacienteTitle_dni}" filterBy="#{item.dni}" sortBy="#{item.dni}" filterMatchMode="contains">
+              <h:outputText value="#{item.dni}"/>
+            </p:column>
+            <p:column headerText="#{bundle.ListPacienteTitle_direccion}">
+              <h:outputText value="#{item.direccion}"/>
+            </p:column>
+            <p:column headerText="#{bundle.ListPacienteTitle_lugarNacimiento}">
+              <h:outputText value="#{item.lugarNacimiento}"/>
+            </p:column>
+            <p:column headerText="#{bundle.ListPacienteTitle_celular}">
+              <h:outputText value="#{item.celular}"/>
+            </p:column>
+            <f:facet name="footer">
+              <p:commandButton value="Aceptar" 
+                               actionListener="#{historia.cargarHistoriaPaciente}"  
+                               update=":pacienteData,:formId:historiaData,:formId:datalistEnfermedades,:formId:datalistExploracion" 
+                               oncomplete="PF('PacienteSearchDialog').hide()" 
+                               >
+                <p:resetInput target=":formId:historiaData" />
+              </p:commandButton>
+                
+              <p:commandButton value="Cerrar" oncomplete="PF('PacienteSearchDialog').hide()"/>
+            </f:facet>
+          </p:dataTable>
+
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

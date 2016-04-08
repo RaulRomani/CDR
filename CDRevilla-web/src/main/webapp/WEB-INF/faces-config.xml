@@ -8,6 +8,10 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/deploy</base-name>
+            <var>deploy</var>
+        </resource-bundle>
     </application>
     
     <!--
