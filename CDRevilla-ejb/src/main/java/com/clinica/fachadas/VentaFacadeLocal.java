@@ -27,6 +27,8 @@ public interface VentaFacadeLocal {
   void remove(Venta venta);
 
   Venta find(Object id);
+  
+  public List<Venta> findByFormaPagoPaciente(Paciente paciente, String formaPago);
 
   List<Venta> findAll();
 

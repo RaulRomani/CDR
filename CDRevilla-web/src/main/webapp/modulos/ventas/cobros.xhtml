@@ -14,18 +14,9 @@
         <div class="container">
           <h1 class="row" style="color: #269abc">Cobrar cuotas</h1>
 
-          <h:form>
-            <div class="row cobrar-cuotas">
+          <h:form id="CobrosForm">
+            <div class="row">
               <div class="col-sm-6">
-
-                <div class="form-group row">
-                  <h:outputLabel class="col-sm-3 form-control-label" value="Fecha de pago" />
-                  <div class="col-sm-9">
-                    <h:outputText value="" id="popupDate" class="form-control">  <!-- value date -->
-                      <f:convertDateTime pattern="d/M/yyyy"/>  
-                    </h:outputText> 
-                  </div>
-                </div>
 
                 <div class="form-group row">
                   <p:outputLabel class="col-sm-3 form-control-label" value="Cliente" />
@@ -36,48 +27,119 @@
                   </div>
                 </div>
 
-                <div class="form-group row">
-                  <p:outputLabel class="col-sm-3 form-control-label" value="Nº de cuotas" />
-                  <div class="col-sm-9">
-                    <input type="email" class="form-control" id="inputEmail3" />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <p:outputLabel class="col-sm-3 form-control-label" for="tiempo" value="Tiempo" />
-                  <div class="col-sm-9">
-                    <p:selectOneRadio id="tiempo" value="">
-                      <f:selectItem itemLabel="Mensual"
-                                    itemValue="MENSUAL"/>
-                      <f:selectItem itemLabel="Quincenal"
-                                    itemValue="QUINCENAL"/>
-                    </p:selectOneRadio>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <div class="col-lg-3 form-control-label">
-                    <p:outputLabel  value="Cuota a pagar" />
-                  </div>
-                  <div class="col-lg-9">
-                    <div style="margin-bottom: 25px" class="input-group">
-                      <span class="input-group-addon">S/.</span>
-                      <p:outputLabel value="0.00" class="form-control"/>
+                <h:panelGroup id="cliente" rendered="#{cobros.pacienteSelected.idPaciente != null}">
+                  <div class="form-group row">
+                    <div class="col-sm-3">
+                      <p:outputLabel class="form-control-label"  value="Paciente" />
+                    </div>
+                    <div class="col-sm-9">
+                      <p:outputLabel value="#{cobros.pacienteSelected.nombre} #{cobros.pacienteSelected.apelllidos}"/>
+                      <p:inputText id="idPaciente" value="#{cobros.pacienteSelected.idPaciente}" type="hidden" />
                     </div>
                   </div>
-                  <div class="col-lg-offset-8" />
+                </h:panelGroup>
+
+                <div class="form-group row">
+                  <p:outputLabel class="col-sm-3 form-control-label" value="Venta en cuotas" />
+                  <div class="col-sm-9">
+                    <p:commandButton id="buscarVentaEnCuotas" icon="ui-icon-search"   
+                                     value="Buscar"
+                                     update=":VentaSearchForm"
+                                     oncomplete="PF('VentaSearchDialog').show()"/>
+                  </div>
                 </div>
-
-                <p:commandButton value="Guardar" />
-
 
               </div>
               <div class="col-sm-offset-6" />
             </div>
+
+            <div class="row">
+              <h:panelGroup id="venta" rendered="#{cobros.ventaSelected.idVenta != null}">
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <div class="col-sm-3">
+                      <p:outputLabel class="form-control-label"  value="código de venta" />
+                    </div>
+                    <div class="col-sm-9">
+                      <h:outputText value="#{cobros.ventaSelected.idVenta}"/>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <h:outputLabel class="col-sm-3 form-control-label" value="Fecha de pago" />
+                    <div class="col-sm-9">
+                      <h:outputText value="#{cobros.cuotaSelected.fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                      </h:outputText> 
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <p:outputLabel class="col-sm-3 form-control-label" value="Plazo" />
+                    <div class="col-sm-9">
+                      <h:outputText value="#{cobros.cuotaSelected.plazo}"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-3 form-control-label">
+                      <p:outputLabel value="Cuota a pagar" />
+                    </div>
+                    <div class="col-lg-3">
+                      <p:spinner value="#{cobros.cuotas}" min="0" 
+                                 max="#{cobros.cuotaSelected.totalcuotas - cobros.cuotaSelected.cuotaspagado}"/> 
+                    </div>
+                    <div class="col-lg-6"/>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+
+                  <div class="form-group row">
+                    <div class="col-lg-3 form-control-label">
+                      <p:outputLabel  value="Importe" />
+                    </div>
+                    <div class="col-lg-9">
+                      <div>
+                        <h:outputText value="S/. #{cobros.cuotaSelected.importe}"/>
+                      </div>
+                    </div>
+                    <div class="col-lg-offset-8" />
+                  </div>
+
+                  <div class="form-group row">
+                    <p:outputLabel class="col-sm-3 form-control-label" value="Total de cuotas"/>
+                    <div class="col-sm-9">
+                      <h:outputText  value="#{cobros.cuotaSelected.totalcuotas}" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <p:outputLabel class="col-sm-3 form-control-label" value="Cuotas pagado"/>
+                    <div class="col-sm-9">
+                      <h:outputText  value="#{cobros.cuotaSelected.cuotaspagado}" />
+                    </div>
+                  </div>
+
+
+                </div>    
+                <div class="col-sm-4"/>
+                <div class="col-sm-12" align="center">
+                  <p:commandButton actionListener="#{cobros.Save}" 
+                                   value="Guardar" icon="fa fa-floppy-o" 
+                                   update="CobrosForm,:growl"/>
+                </div>
+
+
+              </h:panelGroup>
+
+
+            </div>
+
           </h:form>
         </div>
 
         <ui:include src="cobrosBuscarPaciente.xhtml"/>
+        <ui:include src="cobrosBuscarVentas.xhtml"/>
       </ui:define>
     </ui:composition>
   </h:body>

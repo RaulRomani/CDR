@@ -68,7 +68,7 @@ public class Historia implements Serializable {
   private StreamedContent image;
   private String pathImage;
 
-  final static org.apache.log4j.Logger logger = Log4jConfig.getLogger(PacienteController.class.getName());
+  final static org.apache.log4j.Logger logger = Log4jConfig.getLogger(Historia.class.getName());
 
   @PostConstruct
   void init() {

@@ -31,8 +31,8 @@
             <p:inputText id="funcionesBiologiacas" value="#{historia.enfermedad.funcionesBiologiacas}" title="#{bundle.CreateEnfermedadTitle_funcionesBiologiacas}" required="true" requiredMessage="#{bundle.CreateEnfermedadRequiredMessage_funcionesBiologiacas}"/>
             
           </p:panelGrid>
-          <p:commandButton actionListener="#{historia.addEnfermedad}" value="#{bundle.Save}" update="display,:formId:datalistEnfermedades,:growl" />
-          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('EnfermedadCreateDialog').hide()"/>
+          <p:commandButton actionListener="#{historia.addEnfermedad}" value="#{bundle.Save}" update="display,:formId:datalistEnfermedades,:growl" oncomplete="PF('EnfermedadCreateDialog').hide()"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('EnfermedadCreateDialog').hide()"/>
         </h:panelGroup>
       </h:form>
     </p:dialog>

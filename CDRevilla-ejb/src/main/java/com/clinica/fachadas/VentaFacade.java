@@ -21,7 +21,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -99,7 +102,7 @@ public class VentaFacade extends AbstractFacade<Venta> implements VentaFacadeLoc
 
     Venta venta = new Venta();
     venta.setComprobante("BOLETA");
-    venta.setFormapago("CONTADO");
+    venta.setFormapago("CUOTAS");
     venta.setFecha(new Date());
     venta.setTotal(carrito.getTotal());
     venta.setIdPaciente(paciente);
@@ -145,6 +148,21 @@ public class VentaFacade extends AbstractFacade<Venta> implements VentaFacadeLoc
     }
 
 //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+  
+  @Override
+  public List<Venta> findByFormaPagoPaciente(Paciente paciente, String formaPago) {
+    
+    TypedQuery<Venta> q = getEntityManager().createNamedQuery("Venta.findByformaPagoPaciente", Venta.class);
+    q.setParameter("formapago", formaPago);
+    q.setParameter("idPaciente", paciente);
+    List<Venta> list;
+    try {
+      list = q.getResultList();
+    } catch (NoResultException e) {
+      list = null;
+    }
+    return list;
   }
 
 }
