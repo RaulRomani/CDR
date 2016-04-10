@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <ui:composition>
+
+    <p:dialog id="EnfermedadEditDlg" 
+              widgetVar="EnfermedadEditDialog" 
+              modal="true" resizable="false" 
+              appendTo="@(body)" 
+              header="#{bundle.EditEnfermedadTitle}">
+      
+      <h:form id="EnfermedadEditForm">
+        <h:panelGroup id="display">
+          <p:panelGrid columns="2" rendered="#{historia.enfermedad != null}" >
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_datosInformante}" for="datosInformante" />
+            <p:inputText id="datosInformante" value="#{historia.enfermedad.datosInformante}" title="#{bundle.EditEnfermedadTitle_datosInformante}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_datosInformante}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_motivoConsulta}" for="motivoConsulta" />
+            <p:inputText id="motivoConsulta" value="#{historia.enfermedad.motivoConsulta}" title="#{bundle.EditEnfermedadTitle_motivoConsulta}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_motivoConsulta}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_tiempoEnfermedad}" for="tiempoEnfermedad" />
+            <p:inputText id="tiempoEnfermedad" value="#{historia.enfermedad.tiempoEnfermedad}" title="#{bundle.EditEnfermedadTitle_tiempoEnfermedad}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_tiempoEnfermedad}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_signosSintomas}" for="signosSintomas" />
+            <p:inputText id="signosSintomas" value="#{historia.enfermedad.signosSintomas}" title="#{bundle.EditEnfermedadTitle_signosSintomas}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_signosSintomas}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_relatoCronologico}" for="relatoCronologico" />
+            <p:inputText id="relatoCronologico" value="#{historia.enfermedad.relatoCronologico}" title="#{bundle.EditEnfermedadTitle_relatoCronologico}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_relatoCronologico}"/>
+            <p:outputLabel value="#{bundle.EditEnfermedadLabel_funcionesBiologiacas}" for="funcionesBiologiacas" />
+            <p:inputText id="funcionesBiologiacas" value="#{historia.enfermedad.funcionesBiologiacas}" title="#{bundle.EditEnfermedadTitle_funcionesBiologiacas}" required="true" requiredMessage="#{bundle.EditEnfermedadRequiredMessage_funcionesBiologiacas}"/>
+            
+          </p:panelGrid>
+          <p:commandButton actionListener="#{historia.editEnfermedad}" value="#{bundle.Save}" 
+                           update="display,:formId,:growl" oncomplete="handleSubmit(args,'EnfermedadEditDialog');"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('EnfermedadEditDialog').hide()"/>
+        </h:panelGroup>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</html>

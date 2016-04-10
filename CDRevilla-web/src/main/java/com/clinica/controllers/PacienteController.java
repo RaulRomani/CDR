@@ -104,7 +104,6 @@ public class PacienteController implements Serializable {
     selected.setOcupación("");
     selected.setReligion("");
     selected.setEstadoCivil("");
-    selected.setFoto("");
     initializeEmbeddableKey();
     return selected;
   }

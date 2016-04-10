@@ -29,7 +29,7 @@
             
             
           </p:panelGrid>
-          <p:commandButton actionListener="#{historia.addExploracionFisica()}" value="#{bundle.Save}" update="display,:formId:datalistExploracion,:growl" />
+          <p:commandButton actionListener="#{historia.addExploracionFisica()}" value="#{bundle.Save}" update="display,:formId:datalistExploracion,:growl" oncomplete="handleSubmit(args,'ExploracionfisicaCreateDialog');"/>
           <p:commandButton value="Cerrar" oncomplete="PF('ExploracionfisicaCreateDialog').hide()"/>
         </h:panelGroup>
       </h:form>

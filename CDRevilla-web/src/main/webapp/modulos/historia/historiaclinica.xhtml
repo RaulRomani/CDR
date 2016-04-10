@@ -11,6 +11,7 @@
   <ui:composition template="/templates/templateCool.xhtml">
     <ui:define name="resources">
       <h:outputScript name="/js/scripts.js"/>
+      <h:outputScript name="/js/crud.js"/>
     </ui:define>
 
     <ui:define name="body">
@@ -240,48 +241,59 @@
 
               <p>Agregar enfermedad: 
                 <p:commandButton id="createButton" icon="ui-icon-plus"   
+                                 actionListener="#{historia.prepareAddEnfermedad()}"
                                  value="Agregar"
                                  oncomplete="PF('EnfermedadCreateDialog').show()"/>
               </p>
 
             </div>
             <div class="col-lg-12">
-              <p:dataTable id="datalistEnfermedades" value="#{historia.enfermedades}" var="item">
+              <p:dataTable id="datalistEnfermedades" value="#{historia.enfermedades}" 
+                           var="row"
+                           rowKey="#{row.idEnfermedad}">
                 <p:column>
                   <f:facet name="header">
                     <h:outputText value="#{bundle.ListEnfermedadTitle_datosInformante}"/>
                   </f:facet>
-                  <h:outputText value="#{item.datosInformante}"/>
+                  <h:outputText value="#{row.datosInformante}"/>
                 </p:column>
                 <p:column>
                   <f:facet name="header">
                     <h:outputText value="#{bundle.ListEnfermedadTitle_motivoConsulta}"/>
                   </f:facet>
-                  <h:outputText value="#{item.motivoConsulta}"/>
+                  <h:outputText value="#{row.motivoConsulta}"/>
                 </p:column>
                 <p:column>
                   <f:facet name="header">
                     <h:outputText value="#{bundle.ListEnfermedadTitle_tiempoEnfermedad}"/>
                   </f:facet>
-                  <h:outputText value="#{item.tiempoEnfermedad}"/>
+                  <h:outputText value="#{row.tiempoEnfermedad}"/>
                 </p:column>
                 <p:column>
                   <f:facet name="header">
                     <h:outputText value="#{bundle.ListEnfermedadTitle_signosSintomas}"/>
                   </f:facet>
-                  <h:outputText value="#{item.signosSintomas}"/>
+                  <h:outputText value="#{row.signosSintomas}"/>
                 </p:column>
                 <p:column>
                   <f:facet name="header">
                     <h:outputText value="#{bundle.ListEnfermedadTitle_relatoCronologico}"/>
                   </f:facet>
-                  <h:outputText value="#{item.relatoCronologico}"/>
+                  <h:outputText value="#{row.relatoCronologico}"/>
                 </p:column>
                 <p:column>
                   <f:facet name="header">
                     <h:outputText value="#{bundle.ListEnfermedadTitle_funcionesBiologiacas}"/>
                   </f:facet>
-                  <h:outputText value="#{item.funcionesBiologiacas}"/>
+                  <h:outputText value="#{row.funcionesBiologiacas}"/>
+                </p:column>
+                <p:column headerText="Acciones">
+                  <p:commandLink actionListener="#{historia.loadEnfermedadSelected(row.idEnfermedad)}"
+                                 oncomplete="PF('EnfermedadEditDialog').show()"
+                                 update=":EnfermedadEditForm"
+                                 class="btn btn-sm btn-primary action-btn">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                  </p:commandLink>
                 </p:column>
               </p:dataTable>
 
@@ -295,6 +307,7 @@
               <p>Agregar exploración física:  
                 <p:commandButton id="addExploracion" icon="ui-icon-plus"   
                                  value="Agregar"
+                                 actionListener="#{historia.prepareAddExploracion()}"
                                  oncomplete="PF('ExploracionfisicaCreateDialog').show()"/>
               </p>
             </div>
@@ -342,6 +355,14 @@
                   </f:facet>
                   <h:outputText value="#{item.odontoestomatologico}"/>
                 </p:column>
+                <p:column headerText="Acciones">
+                  <p:commandLink actionListener="#{historia.loadExploracionFisicaSelected(item.idExploracionFisica)}"
+                                 oncomplete="PF('ExploracionfisicaEditDialog').show()"
+                                 update=":ExploracionfisicaEditDlg"
+                                 class="btn btn-sm btn-primary action-btn">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                  </p:commandLink>
+                </p:column>
               </p:dataTable>
             </div>
           </div>
@@ -349,7 +370,7 @@
           <div align="center">
             <p:commandButton actionListener="#{historia.grabarHistoriaClinica}" 
                              value="Guardar" icon="fa fa-floppy-o" 
-                             update="formId:historiaData,:growl"/>
+                             update="formId,:growl"/>
           </div>
         </h:form>
       </div>
@@ -357,6 +378,8 @@
 
       <ui:include src="addEnfermedad.xhtml"/>
       <ui:include src="addExploracion.xhtml"/>
+      <ui:include src="editEnfermedad.xhtml"/>
+      <ui:include src="editExploracion.xhtml"/>
       <ui:include src="historiaBuscarPaciente.xhtml"/>
 
 

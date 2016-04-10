@@ -5,11 +5,9 @@
  */
 package com.clinica.controllers.process;
 
-import com.clinica.controllers.PacienteController;
 import com.clinica.controllers.util.JsfUtil;
 import com.clinica.controllers.util.Log4jConfig;
 import com.clinica.entidades.Enfermedad;
-import com.clinica.entidades.Personal;
 import com.clinica.entidades.Exploracionfisica;
 import com.clinica.entidades.Historiaclinica;
 import com.clinica.entidades.Paciente;
@@ -35,7 +33,6 @@ import javax.inject.Named;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -53,6 +50,12 @@ public class Historia implements Serializable {
 
   @EJB
   private com.clinica.fachadas.HistoriaclinicaFacadeLocal ejbFacadeHistoria;
+  
+  @EJB
+  private com.clinica.fachadas.EnfermedadFacadeLocal ejbFacadeEnfermedad;
+  
+  @EJB
+  private com.clinica.fachadas.ExploracionfisicaFacadeLocal ejbFacadeExploracion;
 
   private UploadedFile file;
 
@@ -87,14 +90,20 @@ public class Historia implements Serializable {
   }
 
   public void grabarHistoriaClinica() {
+    
+    String mensaje = "";
 
+    
     historia.setEnfermedadList(enfermedades);
     historia.setExploracionfisicaList(exploraciones);
-    historia.setFechaAtencion(new Date());
-    historia.setIdExploracionFisica(21);
-    historia.setIdEnfermedad(23);
     
-    historia.setIdPaciente(pacienteSelected);
+    if(historia.getIdHistoriaClinica() == null){
+      mensaje = ResourceBundle.getBundle("/Bundle").getString("HistoriaclinicaCreated");
+      historia.setFechaAtencion(new Date());
+      historia.setIdPaciente(pacienteSelected);
+    } else {
+      mensaje = ResourceBundle.getBundle("/Bundle").getString("HistoriaclinicaUpdated");
+    }
 
     for (Enfermedad e : enfermedades) {
       e.setIdHistoriaClinica(historia);
@@ -103,21 +112,26 @@ public class Historia implements Serializable {
     for (Exploracionfisica ex : exploraciones) {
       ex.setIdHistoriaClinica(historia);
     }
+    
+    logger.info("Id historía clínica: " + historia.getIdHistoriaClinica());
 
-    persist(JsfUtil.PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("HistoriaclinicaCreated"));
-    if (!JsfUtil.isValidationFailed()) { //Si la transaccion tuvo exito.
-//      enfermedades = null;    // Invalidate list of items to trigger re-query.
-//      exploraciones = null;
-//      historia = new Historiaclinica();
-//      pacienteSelected = new Paciente();
-    }
+    persist(historia,JsfUtil.PersistAction.UPDATE, mensaje);
+    
+    cargarHistoriaPaciente();
   }
 
-  private void persist(JsfUtil.PersistAction persistAction, String successMessage) {
-    if (historia != null) {
+  private  <T> void persist(T entity, JsfUtil.PersistAction persistAction, String successMessage) {
+    if (entity != null) {
       try {
         if (persistAction != JsfUtil.PersistAction.DELETE) {
-          ejbFacadeHistoria.edit(historia);
+          if (entity instanceof Historiaclinica){
+            ejbFacadeHistoria.edit(historia);
+          } else if (entity instanceof Enfermedad){
+            ejbFacadeEnfermedad.edit(enfermedad);
+          } else if (entity instanceof Exploracionfisica){
+            ejbFacadeExploracion.edit(exploracion);
+          }
+          
         } else {
           ejbFacadeHistoria.remove(historia);
         }
@@ -138,6 +152,39 @@ public class Historia implements Serializable {
         JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
       }
     }
+  }
+  
+  public void loadEnfermedadSelected(Integer idEnfermedad){
+    logger.info("idEnfermedad: " +  idEnfermedad);
+    enfermedad = ejbFacadeEnfermedad.find(idEnfermedad);
+    logger.info("loadEnfermedad OK :" + enfermedad.getIdEnfermedad());
+  }
+  
+  public void loadExploracionFisicaSelected(Integer idExploracion){
+    logger.info("idExploracion: " +  idExploracion);
+    exploracion = ejbFacadeExploracion.find(idExploracion);
+    logger.info("loadEploración OK :" + exploracion.getIdExploracionFisica());
+  }
+  
+  public void prepareAddExploracion(){
+    exploracion = new Exploracionfisica();
+  }
+  public void prepareAddEnfermedad(){
+    enfermedad = new Enfermedad();
+  }
+  
+  public void editEnfermedad(){
+    persist(enfermedad,JsfUtil.PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EnfermedadUpdated"));
+    cargarHistoriaPaciente();
+    enfermedad = new Enfermedad();
+    logger.info("Enfermedad Actualizado OK");
+  }
+  
+  public void editExploracion(){
+    persist(exploracion,JsfUtil.PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExploracionfisicaUpdated"));
+    cargarHistoriaPaciente();
+    exploracion = new Exploracionfisica();
+    logger.info("Exploración Actualizado OK");
   }
 
   public void addEnfermedad() {

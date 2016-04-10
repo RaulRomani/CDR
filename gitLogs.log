@@ -1,3 +1,11 @@
+commit c10035ec3121fcfbbddcb7a34b8ae1acbf039d5d
+Author: Raúl <romanidev@gmail.com>
+Date:   Sun Apr 10 00:41:36 2016 -0500
+
+    Mejoras del mantenimiento CRUD
+    
+    Editar javascript CRUD, cambiar el close o cancel de los dialog, mejorar las relaciones 1 a *, chekar el formato de fechas, cambiar a español, Eliminar id - create y edit
+
 commit 991608a403daf909a83899f3734d104be9148d32
 Author: Raúl <romanidev@gmail.com>
 Date:   Sat Apr 9 01:11:16 2016 -0500

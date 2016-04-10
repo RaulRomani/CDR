@@ -39,10 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Historiaclinica.findAll", query = "SELECT h FROM Historiaclinica h"),
   @NamedQuery(name = "Historiaclinica.findByIdHistoriaClinica", query = "SELECT h FROM Historiaclinica h WHERE h.idHistoriaClinica = :idHistoriaClinica"),
   @NamedQuery(name = "Historiaclinica.findByFechaAtencion", query = "SELECT h FROM Historiaclinica h WHERE h.fechaAtencion = :fechaAtencion"),
-  @NamedQuery(name = "Historiaclinica.findByIdEnfermedad", query = "SELECT h FROM Historiaclinica h WHERE h.idEnfermedad = :idEnfermedad"),
   @NamedQuery(name = "Historiaclinica.findByAntecedentesFamiliares", query = "SELECT h FROM Historiaclinica h WHERE h.antecedentesFamiliares = :antecedentesFamiliares"),
   @NamedQuery(name = "Historiaclinica.findByAntecedentesPersonales", query = "SELECT h FROM Historiaclinica h WHERE h.antecedentesPersonales = :antecedentesPersonales"),
-  @NamedQuery(name = "Historiaclinica.findByIdExploracionFisica", query = "SELECT h FROM Historiaclinica h WHERE h.idExploracionFisica = :idExploracionFisica"),
   @NamedQuery(name = "Historiaclinica.findByDiagnosticoPresuntivo", query = "SELECT h FROM Historiaclinica h WHERE h.diagnosticoPresuntivo = :diagnosticoPresuntivo"),
   @NamedQuery(name = "Historiaclinica.findByDiagnosticoDefinitivo", query = "SELECT h FROM Historiaclinica h WHERE h.diagnosticoDefinitivo = :diagnosticoDefinitivo"),
   @NamedQuery(name = "Historiaclinica.findByPlanTrabajo", query = "SELECT h FROM Historiaclinica h WHERE h.planTrabajo = :planTrabajo"),
@@ -64,10 +62,6 @@ public class Historiaclinica implements Serializable {
   private Date fechaAtencion;
   @Basic(optional = false)
   @NotNull
-  @Column(name = "IdEnfermedad")
-  private int idEnfermedad;
-  @Basic(optional = false)
-  @NotNull
   @Size(min = 1, max = 250)
   @Column(name = "AntecedentesFamiliares")
   private String antecedentesFamiliares;
@@ -76,10 +70,6 @@ public class Historiaclinica implements Serializable {
   @Size(min = 1, max = 250)
   @Column(name = "AntecedentesPersonales")
   private String antecedentesPersonales;
-  @Basic(optional = false)
-  @NotNull
-  @Column(name = "IdExploracionFisica")
-  private int idExploracionFisica;
   @Basic(optional = false)
   @NotNull
   @Size(min = 1, max = 250)
@@ -125,13 +115,11 @@ public class Historiaclinica implements Serializable {
     this.idHistoriaClinica = idHistoriaClinica;
   }
 
-  public Historiaclinica(Integer idHistoriaClinica, Date fechaAtencion, int idEnfermedad, String antecedentesFamiliares, String antecedentesPersonales, int idExploracionFisica, String diagnosticoPresuntivo, String diagnosticoDefinitivo, String planTrabajo, String pronostico, String tratamientoRecomendacion, String altaPaciente) {
+  public Historiaclinica(Integer idHistoriaClinica, Date fechaAtencion, String antecedentesFamiliares, String antecedentesPersonales, String diagnosticoPresuntivo, String diagnosticoDefinitivo, String planTrabajo, String pronostico, String tratamientoRecomendacion, String altaPaciente) {
     this.idHistoriaClinica = idHistoriaClinica;
     this.fechaAtencion = fechaAtencion;
-    this.idEnfermedad = idEnfermedad;
     this.antecedentesFamiliares = antecedentesFamiliares;
     this.antecedentesPersonales = antecedentesPersonales;
-    this.idExploracionFisica = idExploracionFisica;
     this.diagnosticoPresuntivo = diagnosticoPresuntivo;
     this.diagnosticoDefinitivo = diagnosticoDefinitivo;
     this.planTrabajo = planTrabajo;
@@ -156,14 +144,6 @@ public class Historiaclinica implements Serializable {
     this.fechaAtencion = fechaAtencion;
   }
 
-  public int getIdEnfermedad() {
-    return idEnfermedad;
-  }
-
-  public void setIdEnfermedad(int idEnfermedad) {
-    this.idEnfermedad = idEnfermedad;
-  }
-
   public String getAntecedentesFamiliares() {
     return antecedentesFamiliares;
   }
@@ -178,14 +158,6 @@ public class Historiaclinica implements Serializable {
 
   public void setAntecedentesPersonales(String antecedentesPersonales) {
     this.antecedentesPersonales = antecedentesPersonales;
-  }
-
-  public int getIdExploracionFisica() {
-    return idExploracionFisica;
-  }
-
-  public void setIdExploracionFisica(int idExploracionFisica) {
-    this.idExploracionFisica = idExploracionFisica;
   }
 
   public String getDiagnosticoPresuntivo() {

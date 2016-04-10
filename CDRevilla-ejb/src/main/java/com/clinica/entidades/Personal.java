@@ -37,7 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Personal.findByApellidos", query = "SELECT p FROM Personal p WHERE p.apellidos = :apellidos"),
   @NamedQuery(name = "Personal.findByEspecialidad", query = "SELECT p FROM Personal p WHERE p.especialidad = :especialidad"),
   @NamedQuery(name = "Personal.findByDni", query = "SELECT p FROM Personal p WHERE p.dni = :dni"),
-  @NamedQuery(name = "Personal.findByFoto", query = "SELECT p FROM Personal p WHERE p.foto = :foto"),
   @NamedQuery(name = "Personal.findByDireccion", query = "SELECT p FROM Personal p WHERE p.direccion = :direccion"),
   @NamedQuery(name = "Personal.findByLugarNacimiento", query = "SELECT p FROM Personal p WHERE p.lugarNacimiento = :lugarNacimiento"),
   @NamedQuery(name = "Personal.findByCelular", query = "SELECT p FROM Personal p WHERE p.celular = :celular"),
@@ -74,9 +73,6 @@ public class Personal implements Serializable {
   @Size(min = 1, max = 8)
   @Column(name = "DNI")
   private String dni;
-  @Size(max = 100)
-  @Column(name = "Foto")
-  private String foto;
   @Size(max = 100)
   @Column(name = "Direccion")
   private String direccion;
@@ -166,14 +162,6 @@ public class Personal implements Serializable {
 
   public void setDni(String dni) {
     this.dni = dni;
-  }
-
-  public String getFoto() {
-    return foto;
-  }
-
-  public void setFoto(String foto) {
-    this.foto = foto;
   }
 
   public String getDireccion() {
