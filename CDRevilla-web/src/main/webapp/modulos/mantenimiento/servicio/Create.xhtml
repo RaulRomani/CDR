@@ -19,8 +19,8 @@
             <p:outputLabel value="#{bundle.CreateServicioLabel_descripcion}" for="descripcion" />
             <p:inputText id="descripcion" value="#{servicioController.selected.descripcion}" title="#{bundle.CreateServicioTitle_descripcion}" />
           </p:panelGrid>
-          <p:commandButton actionListener="#{servicioController.create}" value="#{bundle.Save}" update="display,:ServicioListForm:datalist,:growl" />
-          <p:commandButton value="#{bundle.Cancel}" onclick="ServicioCreateDialog.hide()"/>
+          <p:commandButton actionListener="#{servicioController.create}" value="#{bundle.Save}" update="display,:ServicioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ServicioCreateDialog');" />
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ServicioCreateDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-03-2016 a las 12:52:54
+-- Tiempo de generación: 10-04-2016 a las 07:35:49
 -- Versión del servidor: 10.1.8-MariaDB
 -- Versión de PHP: 5.5.30
 
@@ -44,9 +44,9 @@ CREATE TABLE `cuota` (
 --
 
 INSERT INTO `cuota` (`idCuota`, `IdVenta`, `totalcuotas`, `cuotaspagado`, `fecha`, `plazo`, `inicial`, `importe`) VALUES
-(1, 7, 3, 0, '2016-04-04', 'MENSUAL', '20.00', '40.00'),
-(2, 7, 5, 0, '2013-03-03', '3', '40.00', '20.00'),
-(3, 13, 3, 0, '2016-03-23', 'MENSUAL', '40.00', '26.67');
+(3, 13, 3, 3, '2016-03-23', 'MENSUAL', '40.00', '26.67'),
+(4, 14, 3, 0, '2016-04-08', 'QUINCENAL', '20.00', '20.00'),
+(5, 8, 0, 0, '2016-04-20', '4334', '3443.00', '43.00');
 
 -- --------------------------------------------------------
 
@@ -65,6 +65,21 @@ CREATE TABLE `enfermedad` (
   `FuncionesBiologiacas` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `enfermedad`
+--
+
+INSERT INTO `enfermedad` (`IdEnfermedad`, `IdHistoriaClinica`, `DatosInformante`, `MotivoConsulta`, `TiempoEnfermedad`, `SignosSintomas`, `RelatoCronologico`, `FuncionesBiologiacas`) VALUES
+(1, 1, 'a', 'b', 'c', 'd', 'e', 'e'),
+(2, 2, 'a', 'a', 'a', 'a', 'aa', 'a'),
+(3, 2, 'b', 'b', 'b', 'b', 'bb', 'b'),
+(4, 2, 'b', 'b', 'b', 'b', 'bb', 'b'),
+(8, 1, 'sad', 'd', 'd', 'd', 'd', 'dd'),
+(9, 1, 'sdasd', 's', 's', 's', 'ss', 's'),
+(10, 1, 'sd dasd asd sad as das da sd asd asd as das dsa ds d', 'ddsasd as das d asd asd as da sd asd as dsa dsa', 'd', 'd', 'ds', 'd'),
+(11, 1, 'qwdasd', 'd', 'sad', 'dasdsd', 'dasdasd', 'dqds'),
+(12, 2, 'asda', 'd', 'sad', 'dsad', 'dsadasd', 'dasd');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +97,19 @@ CREATE TABLE `exploracionfisica` (
   `ExamenClinicoGeneral` varchar(250) NOT NULL,
   `Odontoestomatologico` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `exploracionfisica`
+--
+
+INSERT INTO `exploracionfisica` (`IdExploracionFisica`, `IdHistoriaClinica`, `SignosVitales`, `Pulso`, `Temperatura`, `FC`, `FrecuenciaRespiratoria`, `ExamenClinicoGeneral`, `Odontoestomatologico`) VALUES
+(1, 2, 1, 0, 0, 'a', 'a', 'a', 'a'),
+(2, 2, 2, 0, 0, 'b', 'b', 'b', 'b'),
+(3, 2, 3, 0, 0, 'a', 'a', 'a', 'a'),
+(4, 2, 4, 0, 0, 'c', 'c', 'c', 'c'),
+(5, 2, 0, 0, 0, 'd', 'd', 'd', 'd'),
+(6, 3, 0, 0, 0, 'e', 'e', 'e', 'e'),
+(7, 2, 0, 1, 0, 'asd', 'd', 'dd', 'asd');
 
 -- --------------------------------------------------------
 
@@ -104,6 +132,15 @@ CREATE TABLE `historiaclinica` (
   `TratamientoRecomendacion` varchar(300) NOT NULL,
   `AltaPaciente` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `historiaclinica`
+--
+
+INSERT INTO `historiaclinica` (`IdHistoriaClinica`, `IdPaciente`, `FechaAtencion`, `IdEnfermedad`, `AntecedentesFamiliares`, `AntecedentesPersonales`, `IdExploracionFisica`, `DiagnosticoPresuntivo`, `DiagnosticoDefinitivo`, `PlanTrabajo`, `Pronostico`, `TratamientoRecomendacion`, `AltaPaciente`) VALUES
+(1, 1, '2016-04-19 00:00:00', 1, 'abc', 'def', 1, 'a', 'b', 'c', 'd', 'e', 'f'),
+(2, 2, '2016-04-07 19:25:35', 23, 'a', 'a', 21, 'a', 'a', 'a', 'a', 'a', 'a'),
+(3, 8, '2016-04-07 19:42:38', 23, 'a', 'a', 21, 'a', 'a', 'a', 'a', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -135,8 +172,9 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`idPaciente`, `Nombre`, `Apelllidos`, `DNI`, `Direccion`, `LugarNacimiento`, `Celular`, `Sexo`, `Edad`, `Raza`, `GradoInstruccion`, `Ocupación`, `Religion`, `EstadoCivil`, `Foto`, `FechaApertura`) VALUES
-(1, 'raul', 'romani flores', '2332', '2334', 'dffd', '33', 'ssd', '12', 'asdd', 'asdas', 'sadsa', 'sdds', 'sdas', 'asdsa', '2016-02-10'),
-(2, 'Carlos', 'asdas', 'sasdsa', 'sadas', 'asdsa', 'asdas', 'sdfds', '999', 'sdfsd', 'sdfsdf', 'sdfsdfs', 'sdfsdf', 'sdsdf', 'asds', '2016-02-17');
+(1, 'Raúl', 'romani flores', '47830392', 'Jr libertad', '', '979436577', 'MASCULINO', '25', 'asdd', '', 'sadsa', 'sdds', 'sdas', 'D:\\tmp\\47830392', '2016-02-10'),
+(2, 'Carlos', 'Perez', '43434545', 'Jr libertad', '', '32344343', 'MASCULINO', '29', '', '', '', '', '', '', '2016-03-30'),
+(8, 'asd', 'd', 'dsad', 'd', '', 'd', 'MASCULINO', '43', '', '', '', '', '', '', '2016-03-30');
 
 -- --------------------------------------------------------
 
@@ -166,7 +204,7 @@ CREATE TABLE `personal` (
 --
 
 INSERT INTO `personal` (`IdPersonal`, `Nombres`, `Apellidos`, `Especialidad`, `DNI`, `Foto`, `Direccion`, `LugarNacimiento`, `Celular`, `Sexo`, `Edad`, `usuario`, `clave`, `rol`) VALUES
-(1, 'Raúl', 'Romaní', 'odontologo', '43562312', NULL, NULL, NULL, NULL, NULL, NULL, 'admin', 'admin', 'administrador');
+(1, 'Raúl', 'Romaní', 'Odontologo', '43562312', NULL, '', '', '', '', '25', 'admin', 'admin', 'administrador');
 
 -- --------------------------------------------------------
 
@@ -208,9 +246,10 @@ CREATE TABLE `servicioventa` (
 --
 
 INSERT INTO `servicioventa` (`IdVenta`, `idServicio`, `cantidad`, `diente`, `importe`) VALUES
-(7, 1, 1, '', '20.00'),
 (8, 2, 2, '6, 3', '120.00'),
-(13, 2, 2, '4, 6', '120.00');
+(13, 2, 2, '4, 6', '120.00'),
+(14, 1, 1, '4', '20.00'),
+(14, 2, 1, '4', '60.00');
 
 -- --------------------------------------------------------
 
@@ -234,10 +273,9 @@ CREATE TABLE `venta` (
 
 INSERT INTO `venta` (`IdVenta`, `IdPersonal`, `idPaciente`, `total`, `fecha`, `formapago`, `comprobante`) VALUES
 (1, 1, 1, '2323.00', '2014-12-06 12:32:12', 'asdsa', 'asdas'),
-(3, 1, 1, '3232.00', '2016-02-02 00:00:00', 'sadasad', 'asdsasad'),
-(7, 1, 1, '20.00', '2016-03-22 05:19:32', 'CONTADO', 'BOLETA'),
 (8, 1, 1, '120.00', '2016-03-22 05:24:10', 'CONTADO', 'BOLETA'),
-(13, 1, 1, '120.00', '2016-03-23 00:34:13', 'CONTADO', 'BOLETA');
+(13, 1, 1, '100.00', '2016-03-23 00:34:13', 'CUOTAS', 'BOLETA'),
+(14, 1, 1, '80.00', '2016-04-08 00:16:04', 'CUOTAS', 'BOLETA');
 
 --
 -- Índices para tablas volcadas
@@ -312,27 +350,27 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `cuota`
 --
 ALTER TABLE `cuota`
-  MODIFY `idCuota` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idCuota` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `enfermedad`
 --
 ALTER TABLE `enfermedad`
-  MODIFY `IdEnfermedad` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `IdEnfermedad` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `exploracionfisica`
 --
 ALTER TABLE `exploracionfisica`
-  MODIFY `IdExploracionFisica` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `IdExploracionFisica` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `historiaclinica`
 --
 ALTER TABLE `historiaclinica`
-  MODIFY `IdHistoriaClinica` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `IdHistoriaClinica` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `idPaciente` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPaciente` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `personal`
 --
@@ -342,17 +380,17 @@ ALTER TABLE `personal`
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `idServicio` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idServicio` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `servicioventa`
 --
 ALTER TABLE `servicioventa`
-  MODIFY `IdVenta` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `IdVenta` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `IdVenta` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `IdVenta` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- Restricciones para tablas volcadas
 --

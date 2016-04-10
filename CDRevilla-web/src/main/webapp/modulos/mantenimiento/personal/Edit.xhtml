@@ -12,8 +12,7 @@
       <h:form id="PersonalEditForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{personalController.selected != null}">
-            <p:outputLabel value="#{bundle.EditPersonalLabel_idPersonal}" for="idPersonal" />
-            <p:inputText id="idPersonal" value="#{personalController.selected.idPersonal}" title="#{bundle.EditPersonalTitle_idPersonal}" required="true" requiredMessage="#{bundle.EditPersonalRequiredMessage_idPersonal}"/>
+            
             <p:outputLabel value="#{bundle.EditPersonalLabel_nombres}" for="nombres" />
             <p:inputText id="nombres" value="#{personalController.selected.nombres}" title="#{bundle.EditPersonalTitle_nombres}" required="true" requiredMessage="#{bundle.EditPersonalRequiredMessage_nombres}"/>
             <p:outputLabel value="#{bundle.EditPersonalLabel_apellidos}" for="apellidos" />
@@ -42,7 +41,7 @@
             <p:inputText id="rol" value="#{personalController.selected.rol}" title="#{bundle.EditPersonalTitle_rol}" required="true" requiredMessage="#{bundle.EditPersonalRequiredMessage_rol}"/>
           </p:panelGrid>
           <p:commandButton actionListener="#{personalController.update}" value="#{bundle.Save}" update="display,:PersonalListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonalEditDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="PersonalEditDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PersonalEditDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

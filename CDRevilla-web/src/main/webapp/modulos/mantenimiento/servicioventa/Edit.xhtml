@@ -19,9 +19,7 @@
             <p:outputLabel value="#{bundle.EditServicioventaLabel_servicio}" for="servicio" />
             <p:selectOneMenu id="servicio" value="#{servicioventaController.selected.servicio}" required="true" requiredMessage="#{bundle.EditServicioventaRequiredMessage_servicio}">
               <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-              <f:selectItems value="#{servicioController.itemsAvailableSelectOne}"
-                             var="servicioItem"
-                             itemValue="#{servicioItem}"/>
+              <f:selectItems value="#{servicioController.itemsAvailableSelectOne}"/>
             </p:selectOneMenu>
             <p:outputLabel value="#{bundle.EditServicioventaLabel_diente}" for="diente" />
             <p:inputText id="diente" value="#{servicioventaController.selected.diente}" 
@@ -31,13 +29,11 @@
             <p:outputLabel value="#{bundle.EditServicioventaLabel_venta}" for="venta" />
             <p:selectOneMenu id="venta" value="#{servicioventaController.selected.venta}" required="true" requiredMessage="#{bundle.EditServicioventaRequiredMessage_venta}">
               <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-              <f:selectItems value="#{ventaController.itemsAvailableSelectOne}"
-                             var="ventaItem"
-                             itemValue="#{ventaItem}"/>
+              <f:selectItems value="#{ventaController.itemsSelectOne}"/>
             </p:selectOneMenu>
           </p:panelGrid>
           <p:commandButton actionListener="#{servicioventaController.update}" value="#{bundle.Save}" update="display,:ServicioventaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ServicioventaEditDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="ServicioventaEditDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ServicioventaEditDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

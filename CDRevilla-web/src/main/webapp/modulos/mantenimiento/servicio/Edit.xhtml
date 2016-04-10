@@ -12,8 +12,7 @@
       <h:form id="ServicioEditForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{servicioController.selected != null}">
-            <p:outputLabel value="#{bundle.EditServicioLabel_idServicio}" for="idServicio" />
-            <p:inputText id="idServicio" value="#{servicioController.selected.idServicio}" title="#{bundle.EditServicioTitle_idServicio}" required="true" requiredMessage="#{bundle.EditServicioRequiredMessage_idServicio}"/>
+            
             <p:outputLabel value="#{bundle.EditServicioLabel_nombre}" for="nombre" />
             <p:inputText id="nombre" value="#{servicioController.selected.nombre}" title="#{bundle.EditServicioTitle_nombre}" required="true" requiredMessage="#{bundle.EditServicioRequiredMessage_nombre}"/>
             <p:outputLabel value="#{bundle.EditServicioLabel_precio}" for="precio" />
@@ -22,7 +21,7 @@
             <p:inputText id="descripcion" value="#{servicioController.selected.descripcion}" title="#{bundle.EditServicioTitle_descripcion}" />
           </p:panelGrid>
           <p:commandButton actionListener="#{servicioController.update}" value="#{bundle.Save}" update="display,:ServicioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ServicioEditDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="ServicioEditDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ServicioEditDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

@@ -12,14 +12,13 @@
       <h:form id="CuotaCreateForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{cuotaController.selected != null}">
-            <p:outputLabel value="#{bundle.CreateCuotaLabel_idCuota}" for="idCuota" />
-            <p:inputText id="idCuota" value="#{cuotaController.selected.idCuota}" title="#{bundle.CreateCuotaTitle_idCuota}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_idCuota}"/>
+            
             <p:outputLabel value="#{bundle.CreateCuotaLabel_totalcuotas}" for="totalcuotas" />
             <p:inputText id="totalcuotas" value="#{cuotaController.selected.totalcuotas}" title="#{bundle.CreateCuotaTitle_totalcuotas}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_totalcuotas}"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_cuotaspagado}" for="cuotaspagado" />
             <p:inputText id="cuotaspagado" value="#{cuotaController.selected.cuotaspagado}" title="#{bundle.CreateCuotaTitle_cuotaspagado}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_cuotaspagado}"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_fecha}" for="fecha" />
-            <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{cuotaController.selected.fecha}" title="#{bundle.EditCuotaTitle_fecha}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_fecha}" showOn="button"/>
+            <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{cuotaController.selected.fecha}" title="#{bundle.EditCuotaTitle_fecha}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_fecha}" showOn="button" locale="es"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_plazo}" for="plazo" />
             <p:inputText id="plazo" value="#{cuotaController.selected.plazo}" title="#{bundle.CreateCuotaTitle_plazo}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_plazo}"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_inicial}" for="inicial" />
@@ -31,13 +30,11 @@
             <p:inputText id="importe" value="#{cuotaController.selected.importe}" title="#{bundle.CreateCuotaTitle_importe}" required="true" requiredMessage="#{bundle.CreateCuotaRequiredMessage_importe}"/>
             <p:outputLabel value="#{bundle.CreateCuotaLabel_idVenta}" for="idVenta" />
             <p:selectOneMenu id="idVenta" value="#{cuotaController.selected.idVenta}" required="true" requiredMessage="#{bundle.EditCuotaRequiredMessage_idVenta}">
-              <f:selectItems value="#{ventaController.itemsAvailableSelectOne}"
-                             var="idVentaItem"
-                             itemValue="#{idVentaItem}"/>
+              <f:selectItems value="#{ventaController.itemsSelectOne}"/>
             </p:selectOneMenu>
           </p:panelGrid>
           <p:commandButton actionListener="#{cuotaController.create}" value="#{bundle.Save}" update="display,:CuotaListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuotaCreateDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="CuotaCreateDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CuotaCreateDialog').hide()"/>
         </h:panelGroup>
       </h:form>
     </p:dialog>

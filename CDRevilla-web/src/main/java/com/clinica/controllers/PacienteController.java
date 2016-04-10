@@ -17,7 +17,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,9 +72,9 @@ public class PacienteController implements Serializable {
     prepareCreate();
     String projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage().toString();
     if(projectStage.equals("Production")){
-      pathImage = ResourceBundle.getBundle("/deploy").getString("productionPicturesPath");
+      pathImage = ResourceBundle.getBundle("/deploy").getString("productionPacientePhotoPath");
     } else if (projectStage.equals("Development")){
-      pathImage = ResourceBundle.getBundle("/deploy").getString("developmentPicturesPath");
+      pathImage = ResourceBundle.getBundle("/deploy").getString("developmentPacientePhotoPath");
     }
     logger.info("Project stage : " + projectStage);
 
@@ -286,8 +288,15 @@ public class PacienteController implements Serializable {
     return getFacade().findAll();
   }
 
-  public List<Paciente> getItemsAvailableSelectOne() {
-    return getFacade().findAll();
+  public Map<Integer, Paciente> getItemsAvailableSelectOne() {
+
+    Map<Integer, Paciente> combo = new HashMap<>();
+
+    List<Paciente> list = getFacade().findAll();
+    for (Paciente item : list) {
+      combo.put(item.getIdPaciente(), item);
+    }
+    return combo;
   }
 
   @FacesConverter(forClass = Paciente.class)

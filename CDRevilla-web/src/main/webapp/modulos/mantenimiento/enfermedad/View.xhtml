@@ -29,7 +29,7 @@
             <h:outputText value="#{bundle.ViewEnfermedadLabel_idHistoriaClinica}"/>
             <h:outputText value="#{enfermedadController.selected.idHistoriaClinica}" title="#{bundle.ViewEnfermedadTitle_idHistoriaClinica}"/>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="EnfermedadViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('EnfermedadViewDialog').hide()"/>
         </h:panelGroup>
       </h:form>
     </p:dialog>

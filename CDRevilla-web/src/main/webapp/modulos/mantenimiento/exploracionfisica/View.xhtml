@@ -31,7 +31,7 @@
             <h:outputText value="#{bundle.ViewExploracionfisicaLabel_idHistoriaClinica}"/>
             <h:outputText value="#{exploracionfisicaController.selected.idHistoriaClinica}" title="#{bundle.ViewExploracionfisicaTitle_idHistoriaClinica}"/>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="ExploracionfisicaViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('ExploracionfisicaViewDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

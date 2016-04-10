@@ -74,7 +74,11 @@
                   <p:outputLabel class="form-control-label" for="diente" value="Diente: " />
                 </div>
                 <div class="col-sm-9">
-                  <p:inputText class="form-control" id="diente" value="#{ventas.servicioVenta.diente}" />
+                  <h:panelGroup id="resetDiente">
+                    <p:inputText class="form-control" id="diente" value="#{ventas.servicioVenta.diente}" >
+                      <f:validateLongRange minimum="1" maximum="32" />
+                    </p:inputText>
+                  </h:panelGroup>
                 </div>
               </div>
 

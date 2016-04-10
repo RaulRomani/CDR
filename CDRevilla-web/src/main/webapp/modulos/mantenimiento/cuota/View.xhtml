@@ -20,7 +20,7 @@
             <h:outputText value="#{cuotaController.selected.cuotaspagado}" title="#{bundle.ViewCuotaTitle_cuotaspagado}"/>
             <h:outputText value="#{bundle.ViewCuotaLabel_fecha}"/>
             <h:outputText value="#{cuotaController.selected.fecha}" title="#{bundle.ViewCuotaTitle_fecha}">
-              <f:convertDateTime pattern="MM/dd/yyyy" />
+              <f:convertDateTime pattern="dd/MM/yyyy" />
             </h:outputText>
             <h:outputText value="#{bundle.ViewCuotaLabel_plazo}"/>
             <h:outputText value="#{cuotaController.selected.plazo}" title="#{bundle.ViewCuotaTitle_plazo}"/>
@@ -31,7 +31,7 @@
             <h:outputText value="#{bundle.ViewCuotaLabel_idVenta}"/>
             <h:outputText value="#{cuotaController.selected.idVenta}" title="#{bundle.ViewCuotaTitle_idVenta}"/>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="CuotaViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('CuotaViewDialog').hide()"/>
         </h:panelGroup>
       </h:form>
     </p:dialog>

@@ -12,8 +12,7 @@
       <h:form id="PersonalCreateForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{personalController.selected != null}">
-            <p:outputLabel value="#{bundle.CreatePersonalLabel_idPersonal}" for="idPersonal" />
-            <p:inputText id="idPersonal" value="#{personalController.selected.idPersonal}" title="#{bundle.CreatePersonalTitle_idPersonal}" required="true" requiredMessage="#{bundle.CreatePersonalRequiredMessage_idPersonal}"/>
+            
             <p:outputLabel value="#{bundle.CreatePersonalLabel_nombres}" for="nombres" />
             <p:inputText id="nombres" value="#{personalController.selected.nombres}" title="#{bundle.CreatePersonalTitle_nombres}" required="true" requiredMessage="#{bundle.CreatePersonalRequiredMessage_nombres}"/>
             <p:outputLabel value="#{bundle.CreatePersonalLabel_apellidos}" for="apellidos" />
@@ -42,7 +41,7 @@
             <p:inputText id="rol" value="#{personalController.selected.rol}" title="#{bundle.CreatePersonalTitle_rol}" required="true" requiredMessage="#{bundle.CreatePersonalRequiredMessage_rol}"/>
           </p:panelGrid>
           <p:commandButton actionListener="#{personalController.create}" value="#{bundle.Save}" update="display,:PersonalListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonalCreateDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="PersonalCreateDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PersonalCreateDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

@@ -19,8 +19,8 @@
 
 
     <ui:define name="body">
-      
-        <h:form id="PacienteCreateEditForm" enctype="multipart/form-data">
+
+      <h:form id="PacienteCreateEditForm" enctype="multipart/form-data" acceptcharset="ISO-8859-1">
         <h:panelGroup id="PacienteFields">
 
 
@@ -34,7 +34,7 @@
                                 class="MostrarImagen" width="150px"
                                 value="#{pacienteController.image}"
                                 cache="false"/>
-                
+
                 <p:fileUpload id="CargarImagen"
                               value="#{pacienteController.file}" 
                               update="showImage"
@@ -95,7 +95,7 @@
                     <p:outputLabel class="form-control-label" value="#{bundle.CreatePacienteLabel_sexo}" for="sexo" />
                   </div>
                   <div class="col-sm-9">
-                    
+
                     <p:selectOneRadio id="sexo" 
                                       value="#{pacienteController.selected.sexo}"
                                       required="true" requiredMessage="#{bundle.CreatePacienteRequiredMessage_sexo}"
@@ -164,7 +164,7 @@
                   </div>
                 </div>
 
-                
+
               </div>
 
             </div>
@@ -175,7 +175,7 @@
                              actionListener="#{pacienteController.create()}" 
                              update="PacienteListForm:datalist,:growl" 
                              ajax="false"/>
-            
+
             <p:commandButton id="cleanFieldsButton" 
                              icon="fa fa-eraser"
                              value="Limpiar" 
@@ -233,9 +233,11 @@
             </p:column>
             <p:column>
               <f:facet name="header">
-                <h:outputText value="#{bundle.ListPacienteTitle_lugarNacimiento}"/>
+                <h:outputText value="#{bundle.ListVentaTitle_fecha}"/>
               </f:facet>
-              <h:outputText value="#{item.lugarNacimiento}"/>
+              <h:outputText value="#{item.fecha}">
+                <f:convertDateTime pattern="dd/MM/yyyy" />
+              </h:outputText>
             </p:column>
             <p:column>
               <f:facet name="header">

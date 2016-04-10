@@ -12,8 +12,7 @@
       <h:form id="ExploracionfisicaEditForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{exploracionfisicaController.selected != null}">
-            <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_idExploracionFisica}" for="idExploracionFisica" />
-            <p:inputText id="idExploracionFisica" value="#{exploracionfisicaController.selected.idExploracionFisica}" title="#{bundle.EditExploracionfisicaTitle_idExploracionFisica}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_idExploracionFisica}"/>
+            
             <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_signosVitales}" for="signosVitales" />
             <p:inputText id="signosVitales" value="#{exploracionfisicaController.selected.signosVitales}" title="#{bundle.EditExploracionfisicaTitle_signosVitales}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_signosVitales}"/>
             <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_pulso}" for="pulso" />
@@ -31,13 +30,11 @@
             <p:outputLabel value="#{bundle.EditExploracionfisicaLabel_idHistoriaClinica}" for="idHistoriaClinica" />
             <p:selectOneMenu id="idHistoriaClinica" value="#{exploracionfisicaController.selected.idHistoriaClinica}" required="true" requiredMessage="#{bundle.EditExploracionfisicaRequiredMessage_idHistoriaClinica}">
               <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-              <f:selectItems value="#{historiaclinicaController.itemsAvailableSelectOne}"
-                             var="idHistoriaClinicaItem"
-                             itemValue="#{idHistoriaClinicaItem}"/>
+              <f:selectItems value="#{historiaclinicaController.itemsAvailableSelectOne}"/>
             </p:selectOneMenu>
           </p:panelGrid>
           <p:commandButton actionListener="#{exploracionfisicaController.update}" value="#{bundle.Save}" update="display,:ExploracionfisicaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExploracionfisicaEditDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="ExploracionfisicaEditDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ExploracionfisicaCreateDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

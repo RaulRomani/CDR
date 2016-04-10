@@ -6,7 +6,9 @@ import com.clinica.controllers.util.JsfUtil.PersistAction;
 import com.clinica.fachadas.VentaFacadeLocal;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,6 +121,17 @@ public class VentaController implements Serializable {
 
   public List<Venta> getItemsAvailableSelectOne() {
     return getFacade().findAll();
+  }
+
+  public Map<Integer, Venta> getItemsSelectOne() {
+
+    Map<Integer, Venta> combo = new HashMap<>();
+
+    List<Venta> list = getFacade().findAll();
+    for (Venta item : list) {
+      combo.put(item.getIdVenta(), item);
+    }
+    return combo;
   }
 
   @FacesConverter(forClass = Venta.class)

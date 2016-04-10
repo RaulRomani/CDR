@@ -41,7 +41,7 @@
             <h:outputText value="#{bundle.ViewPersonalLabel_rol}"/>
             <h:outputText value="#{personalController.selected.rol}" title="#{bundle.ViewPersonalTitle_rol}"/>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="PersonalViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('PersonalViewDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

@@ -1,3 +1,19 @@
+commit 991608a403daf909a83899f3734d104be9148d32
+Author: Raúl <romanidev@gmail.com>
+Date:   Sat Apr 9 01:11:16 2016 -0500
+
+    Avance interfaz cobros
+    
+    Actualizar objeto desde el frontend con ajax y p:dialog
+
+commit 04e17bd3c97b665d9ab5da145016636ef72444e7
+Author: Raúl <romanidev@gmail.com>
+Date:   Thu Apr 7 20:25:40 2016 -0500
+
+    Avance interfaz  de historia clínica
+    
+    JPA persistencia 1 a *
+
 commit e2fedc78da554a78870c3233c62333ef52c8b81a
 Author: Raúl <romanidev@gmail.com>
 Date:   Tue Apr 5 11:49:02 2016 -0500

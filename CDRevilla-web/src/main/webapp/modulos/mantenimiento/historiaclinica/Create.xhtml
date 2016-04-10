@@ -12,10 +12,9 @@
       <h:form id="HistoriaclinicaCreateForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{historiaclinicaController.selected != null}">
-            <p:outputLabel value="#{bundle.CreateHistoriaclinicaLabel_idHistoriaClinica}" for="idHistoriaClinica" />
-            <p:inputText id="idHistoriaClinica" value="#{historiaclinicaController.selected.idHistoriaClinica}" title="#{bundle.CreateHistoriaclinicaTitle_idHistoriaClinica}" required="true" requiredMessage="#{bundle.CreateHistoriaclinicaRequiredMessage_idHistoriaClinica}"/>
+            
             <p:outputLabel value="#{bundle.CreateHistoriaclinicaLabel_fechaAtencion}" for="fechaAtencion" />
-            <p:calendar id="fechaAtencion" pattern="MM/dd/yyyy HH:mm:ss" value="#{historiaclinicaController.selected.fechaAtencion}" title="#{bundle.EditHistoriaclinicaTitle_fechaAtencion}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_fechaAtencion}" showOn="button"/>
+            <p:calendar id="fechaAtencion" pattern="dd/MM/yyyy HH:mm:ss" value="#{historiaclinicaController.selected.fechaAtencion}" title="#{bundle.EditHistoriaclinicaTitle_fechaAtencion}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_fechaAtencion}" showOn="button" locale="es"/>
             <p:outputLabel value="#{bundle.CreateHistoriaclinicaLabel_idEnfermedad}" for="idEnfermedad" />
             <p:inputText id="idEnfermedad" value="#{historiaclinicaController.selected.idEnfermedad}" title="#{bundle.CreateHistoriaclinicaTitle_idEnfermedad}" required="true" requiredMessage="#{bundle.CreateHistoriaclinicaRequiredMessage_idEnfermedad}"/>
             <p:outputLabel value="#{bundle.CreateHistoriaclinicaLabel_antecedentesFamiliares}" for="antecedentesFamiliares" />
@@ -38,9 +37,7 @@
             <p:inputText id="altaPaciente" value="#{historiaclinicaController.selected.altaPaciente}" title="#{bundle.CreateHistoriaclinicaTitle_altaPaciente}" required="true" requiredMessage="#{bundle.CreateHistoriaclinicaRequiredMessage_altaPaciente}"/>
             <p:outputLabel value="#{bundle.CreateHistoriaclinicaLabel_idPaciente}" for="idPaciente" />
             <p:selectOneMenu id="idPaciente" value="#{historiaclinicaController.selected.idPaciente}" required="true" requiredMessage="#{bundle.EditHistoriaclinicaRequiredMessage_idPaciente}">
-              <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
-                             var="idPacienteItem"
-                             itemValue="#{idPacienteItem}"/>
+              <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"/>
             </p:selectOneMenu>
           </p:panelGrid>
           <p:commandButton actionListener="#{historiaclinicaController.create}" value="#{bundle.Save}" update="display,:HistoriaclinicaListForm:datalist,:growl" oncomplete="handleSubmit(args,'HistoriaclinicaCreateDialog');"/>

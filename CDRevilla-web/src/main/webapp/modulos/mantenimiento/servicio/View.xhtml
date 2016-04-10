@@ -21,7 +21,7 @@
             <h:outputText value="#{bundle.ViewServicioLabel_descripcion}"/>
             <h:outputText value="#{servicioController.selected.descripcion}" title="#{bundle.ViewServicioTitle_descripcion}"/>
           </p:panelGrid>
-          <p:commandButton value="#{bundle.Close}" onclick="ServicioViewDialog.hide()"/>
+          <p:commandButton value="#{bundle.Close}" oncomplete="PF('ServicioViewDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>

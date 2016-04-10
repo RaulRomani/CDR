@@ -79,9 +79,9 @@ public class Historia implements Serializable {
 
     String projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage().toString();
     if (projectStage.equals("Production")) {
-      pathImage = ResourceBundle.getBundle("/deploy").getString("productionPicturesPath");
+      pathImage = ResourceBundle.getBundle("/deploy").getString("productionPacientePhotoPath");
     } else if (projectStage.equals("Development")) {
-      pathImage = ResourceBundle.getBundle("/deploy").getString("developmentPicturesPath");
+      pathImage = ResourceBundle.getBundle("/deploy").getString("developmentPacientePhotoPath");
     }
     logger.info("Project stage : " + projectStage);
   }

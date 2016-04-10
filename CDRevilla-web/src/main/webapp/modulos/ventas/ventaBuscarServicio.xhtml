@@ -57,7 +57,9 @@
             
             <f:facet name="footer">
               <p:commandButton value="Aceptar"  oncomplete="PF('ServicioSearchDialog').hide()" 
-                               update=":DatosCarrito"/>
+                               update=":DatosCarrito">
+                <p:resetInput target=":DatosCarrito:diente" />
+              </p:commandButton>
             </f:facet>
           </p:dataTable>
 

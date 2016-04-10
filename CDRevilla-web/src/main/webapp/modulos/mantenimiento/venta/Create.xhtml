@@ -12,31 +12,26 @@
       <h:form id="VentaCreateForm">
         <h:panelGroup id="display">
           <p:panelGrid columns="2" rendered="#{ventaController.selected != null}">
-            <p:outputLabel value="#{bundle.CreateVentaLabel_idVenta}" for="idVenta" />
-            <p:inputText id="idVenta" value="#{ventaController.selected.idVenta}" title="#{bundle.CreateVentaTitle_idVenta}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_idVenta}"/>
+            
             <p:outputLabel value="#{bundle.CreateVentaLabel_total}" for="total" />
             <p:inputText id="total" value="#{ventaController.selected.total}" title="#{bundle.CreateVentaTitle_total}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_total}"/>
             <p:outputLabel value="#{bundle.CreateVentaLabel_fecha}" for="fecha" />
-            <p:calendar id="fecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{ventaController.selected.fecha}" title="#{bundle.EditVentaTitle_fecha}" required="true" requiredMessage="#{bundle.EditVentaRequiredMessage_fecha}" showOn="button"/>
+            <p:calendar id="fecha" pattern="dd/MM/yyyy HH:mm:ss" value="#{ventaController.selected.fecha}" title="#{bundle.EditVentaTitle_fecha}" required="true" requiredMessage="#{bundle.EditVentaRequiredMessage_fecha}" showOn="button" locale="es"/>
             <p:outputLabel value="#{bundle.CreateVentaLabel_formapago}" for="formapago" />
             <p:inputText id="formapago" value="#{ventaController.selected.formapago}" title="#{bundle.CreateVentaTitle_formapago}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_formapago}"/>
             <p:outputLabel value="#{bundle.CreateVentaLabel_comprobante}" for="comprobante" />
             <p:inputText id="comprobante" value="#{ventaController.selected.comprobante}" title="#{bundle.CreateVentaTitle_comprobante}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_comprobante}"/>
             <p:outputLabel value="#{bundle.CreateVentaLabel_idPaciente}" for="idPaciente" />
             <p:selectOneMenu id="idPaciente" value="#{ventaController.selected.idPaciente}" required="true" requiredMessage="#{bundle.EditVentaRequiredMessage_idPaciente}">
-              <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
-                             var="idPacienteItem"
-                             itemValue="#{idPacienteItem}"/>
+              <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"/>
             </p:selectOneMenu>
             <p:outputLabel value="#{bundle.CreateVentaLabel_idPersonal}" for="idPersonal" />
             <p:selectOneMenu id="idPersonal" value="#{ventaController.selected.idPersonal}" required="true" requiredMessage="#{bundle.EditVentaRequiredMessage_idPersonal}">
-              <f:selectItems value="#{personalController.itemsAvailableSelectOne}"
-                             var="idPersonalItem"
-                             itemValue="#{idPersonalItem}"/>
+              <f:selectItems value="#{personalController.itemsAvailableSelectOne}"/>
             </p:selectOneMenu>
           </p:panelGrid>
           <p:commandButton actionListener="#{ventaController.create}" value="#{bundle.Save}" update="display,:VentaListForm:datalist,:growl" oncomplete="handleSubmit(args,'VentaCreateDialog');"/>
-          <p:commandButton value="#{bundle.Cancel}" onclick="VentaCreateDialog.hide()"/>
+          <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VentaCreateDialog').hide()" />
         </h:panelGroup>
       </h:form>
     </p:dialog>
